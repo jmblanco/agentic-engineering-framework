@@ -1,101 +1,101 @@
-# Metodología AEF: Ciclo de Vida Determinista en 6 Fases
+# AEF Methodology: The 6-Phase Deterministic Lifecycle
 
-El **Agentic Engineering Framework (AEF)** establece un estándar riguroso para la entrega de software asistida por agentes autónomos. Cada fase cuenta con entradas claras, artefactos de salida verificables y puertas de calidad (*quality gates*).
+The **Agentic Engineering Framework (AEF)** establishes a disciplined execution methodology for software delivery with autonomous agent teams. Each phase enforces explicit inputs, verifiable output artifacts, and strict quality gates.
 
 ---
 
-## 🗺️ Mapa de Flujo del Ciclo de Vida
+## 🗺️ Lifecycle Flow Diagram
 
 ```mermaid
 flowchart TD
-    subgraph S1["Fase 1: Especificación (SDD)"]
-        A1["Requerimiento o Ticket"] --> A2["Grilling & Preguntas Interactivas"]
-        A2 --> A3["Documento de Spec cerrado"]
-        A3 --> A4{"Aprobación HITL"}
+    subgraph S1["Phase 1: Specification (SDD)"]
+        A1["User Request / Issue"] --> A2["Grilling & Interactive Clarification"]
+        A2 --> A3["Closed Technical Spec"]
+        A3 --> A4{"HITL Approval"}
     end
 
-    subgraph S2["Fase 2: Planificación Atómica"]
-        A4 -- Aprobado --> B1["Descomposición en Tareas Atómicas"]
-        B1 --> B2["Definición de Comandos de Verificación"]
-        B2 --> B3["Plan Verificado"]
+    subgraph S2["Phase 2: Atomic Planning"]
+        A4 -- Approved --> B1["Atomic Task Decomposition"]
+        B1 --> B2["Define Verification Commands"]
+        B2 --> B3["Verified Execution Plan"]
     end
 
-    subgraph S3["Fase 3: TDD & Implementación"]
-        B3 --> C1["Fase Roja: Test que Falla"]
-        C1 --> C2["Fase Verde: Código Quirúrgico Mínimo"]
-        C2 --> C3["Refactor: Limpieza y Legibilidad"]
-        C3 --> C4["Ground Truth Confirmado"]
+    subgraph S3["Phase 3: TDD Implementation"]
+        B3 --> C1["Red Phase: Failing Test"]
+        C1 --> C2["Green Phase: Minimal Surgical Code"]
+        C2 --> C3["Refactor: Clean & Decouple"]
+        C3 --> C4["Ground Truth Confirmed"]
     end
 
-    subgraph S4["Fase 4: Auditoría QA"]
-        C4 --> D1["Auditoría Two-Axis"]
-        D1 --> D2["Comprobación de Tipos y Linter"]
-        D2 --> D3{"¿Quality Gate OK?"}
+    subgraph S4["Phase 4: QA Audit"]
+        C4 --> D1["Two-Axis Review"]
+        D1 --> D2["Type Check & Linter Validation"]
+        D2 --> D3{"Quality Gate Pass?"}
     end
 
-    subgraph S5["Fase 5: Seguridad & SAST"]
-        D3 -- Sí --> E1["Escaneo de Vulnerabilidades (SCA)"]
-        E1 --> E2["Auditoría PoLP y Secretos"]
-        E2 --> E3["Informe de Seguridad Aprobado"]
+    subgraph S5["Phase 5: Security & SAST"]
+        D3 -- Yes --> E1["Dependency Scan (SCA)"]
+        E1 --> E2["PoLP & Secret Audit"]
+        E2 --> E3["Security Report Cleared"]
     end
 
-    subgraph S6["Fase 6: Release & Despliegue"]
-        E3 --> F1["Bump SemVer y Actualización Changelog"]
-        F1 --> F2["Generación de Dry-Plan con Rollback"]
-        F2 --> F3{"Autorización Final HITL"}
-        F3 -- Aprobado --> F4["Ejecución de Release y Tagging"]
+    subgraph S6["Phase 6: Release & Deploy"]
+        E3 --> F1["SemVer Bump & Changelog Update"]
+        F1 --> F2["Generate Dry-Plan & Rollback"]
+        F2 --> F3{"Final HITL Authorization"}
+        F3 -- Approved --> F4["Execute Release & Tagging"]
     end
 
     D3 -- No --> C1
-    A4 -- Rechazado --> A2
-    F3 -- Rechazado --> F2
+    A4 -- Rejected --> A2
+    F3 -- Rejected --> F2
 ```
 
 ---
 
-## 📌 Detalle de las 6 Fases
+## 📌 Phase-by-Phase Execution
 
-### Fase 1: Especificación Técnica (SDD - Spec-Driven Development)
-* **Objetivo**: Erradicar asunciones antes de escribir código.
-* **Proceso**:
-  1. El agente analiza el requerimiento e identifica lagunas en requerimientos de datos, UX, rendimiento o límites.
-  2. Ejecuta un proceso de **Grilling** mediante preguntas concisas con opciones predeterminadas recomendadas.
-  3. Redacta la especificación usando la plantilla [`templates/sdd-spec-template.md`](../templates/sdd-spec-template.md).
-* **Quality Gate (HITL)**: El usuario humano aprueba formalmente la especificación.
+### Phase 1: Technical Specification (SDD - Spec-Driven Development)
+* **Objective**: Eliminate assumptions prior to code authoring.
+* **Process**:
+  1. The agent analyzes the user prompt and isolates ambiguities in data contracts, edge cases, UX, or dependencies.
+  2. Executes **Grilling** via concise multiple-choice questions with explicit recommended defaults.
+  3. Authors an unambiguous technical specification using [`templates/sdd-spec-template.md`](../templates/sdd-spec-template.md).
+* **Quality Gate (HITL)**: The human engineer explicitly signs off on the specification.
 
-### Fase 2: Planificación Atómica
-* **Objetivo**: Fragmentar la especificación en incrementos verificables de forma independiente.
-* **Proceso**:
-  1. Cada tarea debe poder resolverse en una intervención acotada.
-  2. Cada tarea define obligatoriamente su **comando de verificación empírico** (ej. test suite, compilación TypeScript, script de comprobación).
-* **Artefacto**: [`templates/atomic-plan-template.md`](../templates/atomic-plan-template.md).
+### Phase 2: Atomic Task Planning
+* **Objective**: Deconstruct the specification into isolated, verifiable increments.
+* **Process**:
+  1. Each task must be scoped to an atomic intervention.
+  2. Every task must declare its **empirical verification command** (e.g. test runner invocation, TypeScript type-check, or test script).
+* **Artifact**: [`templates/atomic-plan-template.md`](../templates/atomic-plan-template.md).
 
-### Fase 3: TDD & Implementación (Red-Green-Refactor)
-* **Objetivo**: Garantizar fidelidad al comportamiento esperado mediante verificación contra la realidad (*Ground Truth*).
-* **Proceso**:
-  - 🔴 **Rojo**: Escribir la prueba unitaria o de integración y validar que falle por el motivo exacto esperado.
-  - 🟢 **Verde**: Escribir la implementación mínima necesaria para pasar la prueba.
-  - 🔵 **Refactor**: Optimizar legibilidad, modularidad y rendimiento manteniendo la suite en verde.
+### Phase 3: Test-Driven Development (Red-Green-Refactor)
+* **Objective**: Ensure software correctness through empirical verification against the real runtime (*Ground Truth*).
+* **Process**:
+  - 🔴 **Red**: Write a failing unit or integration test reproducing the target behavior. Verify that it fails for the expected reason.
+  - 🟢 **Green**: Write the minimal surgical code required to turn the test green.
+  - 🔵 **Refactor**: Improve readability and modularity while maintaining all tests green.
 
-### Fase 4: Auditoría QA Independiente
-* **Objetivo**: Asegurar que la implementación no introduce deuda técnica, regresiones ni roturas de tipos.
-* **Proceso**:
-  - Evaluación en dos ejes según [`skills/code-review`](../skills/code-review/SKILL.md):
-    - **Eje 1**: Cumplimiento de la especificación original.
-    - **Eje 2**: Detección de *Code Smells*, tipado estricto y accesibilidad.
-* **Quality Gate**: Cero errores de tipado, linter y tests pasando al 100%.
+### Phase 4: Independent QA Audit
+* **Objective**: Guard against technical debt, regression, and code smells.
+* **Process**:
+  - Perform Two-Axis review following [`skills/code-review`](../skills/code-review/SKILL.md):
+    - **Axis 1**: Specification compliance.
+    - **Axis 2**: Code smell detection, strict typing, and accessibility.
+* **Quality Gate**: Zero type-checker warnings, zero linter errors, and 100% test pass rate.
 
-### Fase 5: Auditoría de Seguridad & SAST (Raptor / Security)
-* **Objetivo**: Prevenir vulnerabilidades (OWASP Top 10), exposición de secretos y excesos de permisos.
-* **Proceso**:
-  - Verificación de dependencias y análisis estático de seguridad (SAST).
-  - Aplicación estricta del **Principio de Mínimo Privilegio (PoLP)** en configuración, IAM o variables de entorno.
-  - Comprobación de que no existan credenciales en texto plano.
+### Phase 5: Security & SAST Audit (Raptor / Security)
+* **Objective**: Fortify the repository against OWASP Top 10 vulnerabilities, leaked secrets, and privilege escalation.
+* **Process**:
+  - Software Composition Analysis (SCA) on external dependencies.
+  - Enforce the **Principle of Least Privilege (PoLP)** across configurations and IAM roles.
+  - Scan for plaintext credentials, tokens, and non-hardened infrastructure templates.
 
-### Fase 6: Release & Despliegue Dry-Plan
-* **Objetivo**: Ejecución controlada, determinista y reversible del empaquetado y puesta en producción.
-* **Proceso**:
-  1. Cálculo de incremento SemVer (Major, Minor, Patch).
-  2. Sincronización de `CHANGELOG.md` siguiendo el estándar *Keep a Changelog*.
-  3. Redacción obligatoria de un **Dry-Plan** que detalle los pasos exactos y el plan de rollback en caso de fallo.
-* **Quality Gate (HITL)**: El humano autoriza expresamente la ejecución del despliegue y creación del tag.
+### Phase 6: Release & Dry-Plan Deployment
+* **Objective**: Controlled, deterministic, and reversible release execution.
+* **Process**:
+  1. Determine SemVer bump (Major, Minor, Patch).
+  2. Synchronize `CHANGELOG.md` following the *Keep a Changelog* standard.
+  3. Draft an explicit **Dry-Plan** with an immediate rollback procedure.
+* **Quality Gate (HITL)**: The human engineer authorizes execution before tags or deployments are initiated.

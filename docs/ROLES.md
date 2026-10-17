@@ -1,98 +1,98 @@
-# ROLES.md — Catálogo de Subagentes y Límites Operativos
+# ROLES.md — Subagent Catalogue and Operational Boundaries
 
-Para evitar la contaminación de contexto y el sobreprivilegio operativo, el **Agentic Engineering Framework (AEF)** organiza el trabajo en subagentes especializados. Cada agente cuenta con responsabilidades delimitadas y restricciones operativas conforme al **Principio de Mínimo Privilegio (PoLP)**.
+To eliminate context contamination and prevent over-privileged execution, the **Agentic Engineering Framework (AEF)** partitions development across specialized subagents. Each subagent operates within strict boundaries defined by the **Principle of Least Privilege (PoLP)**.
 
 ---
 
-## 🏛️ Matriz de Subagentes
+## 🏛️ Subagent Architecture Matrix
 
 ```mermaid
 classDiagram
     class SystemArchitect {
-        +Diseño de Arquitectura
-        +Redacción de ADRs
-        +Contratos de Datos
-        +Permisos: Read-Only y Docs
+        +Architectural Design
+        +Drafting ADRs
+        +Data Contracts
+        +Permissions: Read-Only & Docs
     }
     class TDDImplementer {
-        +Desarrollo Quirúrgico
-        +Suites de Pruebas TDD
-        +Refactorización Mínima
-        +Permisos: Código y Tests Locales
+        +Surgical Code
+        +TDD Test Suites
+        +Minimal Refactoring
+        +Permissions: Local Code & Tests
     }
     class QAAutomationLead {
-        +Auditoría de Tipos & Linter
-        +Evaluación Two-Axis
-        +Pruebas de Regresión
-        +Permisos: Ejecución de Tests y Linter
+        +Type Checking & Linter
+        +Two-Axis Evaluation
+        +Regression Verification
+        +Permissions: Test Runner & Linters
     }
     class SecurityAuditor {
-        +Auditoría OWASP Top 10
-        +Escaneo de Secretos
-        +Verificación PoLP
-        +Permisos: Read-Only & SAST Scan
+        +OWASP Top 10 Auditing
+        +Secret Scanning
+        +PoLP Verification
+        +Permissions: Read-Only & SAST Scanners
     }
     class ReleaseArchitect {
-        +Bump SemVer y Changelog
-        +Diseño de Dry-Plan
-        +Estrategia de Rollback
-        +Permisos: Dry-Run (Deploy con HITL)
+        +SemVer Bump & Changelog
+        +Dry-Plan Design
+        +Rollback Orchestration
+        +Permissions: Dry-Run (Deploy via HITL)
     }
 
-    SystemArchitect --> TDDImplementer : Especificación & ADR
-    TDDImplementer --> QAAutomationLead : Código + Tests
-    QAAutomationLead --> SecurityAuditor : Aprobación QA
-    SecurityAuditor --> ReleaseArchitect : Informe Limpio
+    SystemArchitect --> TDDImplementer : Spec & ADR
+    TDDImplementer --> QAAutomationLead : Code + Tests
+    QAAutomationLead --> SecurityAuditor : QA Approval
+    SecurityAuditor --> ReleaseArchitect : Cleared Security Report
 ```
 
 ---
 
-## 📋 Fichas Detalladas de Roles
+## 📋 Role Profiles
 
 ### 1. 🏗️ System Architect
-* **Misión**: Diseñar modelos de datos, flujos distribuidos y documentar decisiones estructurales duraderas.
-* **Entradas**: Requisitos funcionales y de negocio.
-* **Salidas**: Documentos de especificación técnica (SDD), diagramas Mermaid y Architectural Decision Records ([`templates/adr-template.md`](../templates/adr-template.md)).
-* **Límites Operativos**:
-  - ❌ Prohibido ejecutar comandos de despliegue o mutaciones directas de producción.
-  - ✅ Acceso de solo lectura al código fuente y permisos de escritura en `docs/` y `specs/`.
+* **Mission**: Design domain schemas, distributed flows, and document lasting architectural decisions.
+* **Inputs**: Functional requirements and business constraints.
+* **Outputs**: Technical specifications (SDD), Mermaid architectural diagrams, and Architectural Decision Records ([`templates/adr-template.md`](../templates/adr-template.md)).
+* **Operational Boundaries**:
+  - ❌ Prohibited from executing mutating deployment commands.
+  - ✅ Read-only access to source code; write permissions restricted to `docs/` and `specs/`.
 
 ---
 
 ### 2. ⚡ TDD Implementer
-* **Misión**: Traducir tareas atómicas en código de producción funcional respaldado por pruebas deterministas.
-* **Entradas**: Especificación aprobada y plan de tareas atómicas.
-* **Salidas**: Pruebas unitarias/integración en verde y código limpio sin dependencias superfluas.
-* **Límites Operativos**:
-  - ❌ Prohibido modificar contratos de API o estructuras de datos sin autorización previa.
-  - ✅ Permisos para crear y editar archivos fuente y suites de tests en entornos locales de desarrollo.
+* **Mission**: Translate atomic tasks into clean, production-grade code validated by tests.
+* **Inputs**: Approved technical specification and atomic task plan.
+* **Outputs**: Green unit/integration test suites and minimal implementation code.
+* **Operational Boundaries**:
+  - ❌ Prohibited from modifying architectural contracts or database schemas without prior approval.
+  - ✅ Write permissions on application source files and test directories in local workspaces.
 
 ---
 
 ### 3. 🧪 QA Automation Lead
-* **Misión**: Garantizar que el código cumple con los estándares de ingeniería y la especificación sin introducir defectos.
-* **Entradas**: Cambios implementados y tests asociados.
-* **Salidas**: Reporte de revisión en dos ejes ([`skills/code-review`](../skills/code-review/SKILL.md)) y verificación de tests e informe de linter.
-* **Límites Operativos**:
-  - ❌ Prohibido aplicar parches de código directamente; reporta observaciones y bloqueantes al implementador.
-  - ✅ Permisos para ejecutar suites de tests, análisis estático de tipos y linters.
+* **Mission**: Ensure code adheres to engineering standards and specification fidelity without defects.
+* **Inputs**: Committed feature code and corresponding test suites.
+* **Outputs**: Two-Axis review report ([`skills/code-review`](../skills/code-review/SKILL.md)), linter results, and type-check logs.
+* **Operational Boundaries**:
+  - ❌ Does not patch production code directly; files blocking defects for the implementer.
+  - ✅ Read access to source code, execution permissions for test runners, compilers, and linters.
 
 ---
 
 ### 4. 🛡️ Security Auditor (Raptor / SAST)
-* **Misión**: Blindar el repositorio contra inyecciones, exposición de secretos y malas prácticas de infraestructura.
-* **Entradas**: Código fuente, dependencias del proyecto (`package.json`, `pom.xml`, etc.) y configuraciones de despliegue.
-* **Salidas**: Informe de auditoría SAST, matriz de vulnerabilidades y verificación de PoLP.
-* **Límites Operativos**:
-  - ❌ No ejecuta comandos invasivos en red ni despliega recursos externos.
-  - ✅ Lectura de código y dependencias, ejecución de herramientas de análisis de seguridad locales.
+* **Mission**: Fortify the repository against injection risks, secret leaks, and misconfigurations.
+* **Inputs**: Source code, package manifests (`package.json`, etc.), Dockerfiles, and cloud manifests.
+* **Outputs**: SAST audit report, dependency vulnerability analysis (SCA), and PoLP validation.
+* **Operational Boundaries**:
+  - ❌ No external invasive network commands or infrastructure modification.
+  - ✅ Static analysis execution, dependency security audits, and configuration inspection.
 
 ---
 
 ### 5. 🚀 Release & Cloud Architect
-* **Misión**: Gestionar el ciclo de empaquetado, versionado SemVer y planes de despliegue con alta resiliencia.
-* **Entradas**: Código auditado por QA y Seguridad.
-* **Salidas**: Bump SemVer, actualización de `CHANGELOG.md` y diseño del **Dry-Plan** con rollback explícito.
-* **Límites Operativos**:
-  - ❌ **Zero-Execution desatendida**: No puede ejecutar despliegues reales sin la autorización expresa del humano (*HITL*).
-  - ✅ Generación de planes de despliegue, scripts de migración y empaquetado.
+* **Mission**: Manage packaging, SemVer versioning, changelog updates, and resilient release plans.
+* **Inputs**: Audited codebase cleared by QA and Security.
+* **Outputs**: SemVer version bumps, updated `CHANGELOG.md`, and **Dry-Plans** with explicit rollback paths.
+* **Operational Boundaries**:
+  - ❌ **Zero-execution unattended deploys**: Deployment commands require explicit human confirmation (*HITL*).
+  - ✅ Release plan creation, packaging scripts, and tag management.

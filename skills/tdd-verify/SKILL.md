@@ -1,30 +1,30 @@
 ---
 name: tdd-verify
-description: Flujo de desarrollo guiado por pruebas y verificación empírica. Usar para implementar funciones lógicas, utilidades, hooks de estado o componentes críticos con alta confiabilidad.
+description: Test-driven development workflow and empirical verification against reality. Execute to implement logical functions, utilities, state machines, or mission-critical components with high confidence.
 ---
 
 # TDD & Ground-Truth Verification
 
-Combina la metodología TDD con la insistencia de **Andrej Karpathy** en no confiar en suposiciones, sino en la salida real del compilador y el entorno de ejecución.
+Combines strict test-driven development (TDD) with **Andrej Karpathy's** core guideline: never trust theoretical assumptions; verify exclusively against the actual compiler and runtime output (*Ground Truth*).
 
 ---
 
-## Ciclo de Tres Pasos (Rojo -> Verde -> Refactor)
+## Three-Step Cycle (Red -> Green -> Refactor)
 
-### 1. Rojo (Escribir la prueba que falla)
-* Define el comportamiento esperado en un archivo `.test.ts` o `.spec.tsx`.
-* Escribe una prueba pequeña y legible que describa el caso de uso.
-* Ejecuta la prueba con el corredor correspondiente (ejemplo: `npx.cmd vitest run <ruta-test>`).
-* **Verifica que falle por la razón correcta** (y no por un error de sintaxis en el archivo de prueba).
+### 1. Red (Author the Failing Test)
+* Define the expected contract in a test file (e.g. `*.test.ts`, `*_test.go`, `test_*.py`).
+* Write a focused, readable test describing the behavior.
+* Run the test runner (e.g. `npm.cmd test`, `pytest`).
+* **Confirm the test fails for the exact intended reason** (and not due to test syntax errors or broken imports).
 
-### 2. Verde (Implementación mínima)
-* Escribe la cantidad mínima de código necesaria en el archivo de implementación para que la prueba pase.
-* No intentes anticipar casos futuros ni agregar abstracciones en este paso.
-* Vuelve a ejecutar la prueba: debe pasar en verde.
+### 2. Green (Minimal Implementation)
+* Write the minimal surgical code required in the implementation file to satisfy the test.
+* Do not anticipate speculative future requirements in this step.
+* Re-run the test: it must pass in green.
 
-### 3. Refactor (Limpieza sin alterar el comportamiento)
-* Con la seguridad de la prueba en verde:
-  * Elimina duplicidades.
-  * Mejora los nombres de variables y parámetros.
-  * Simplifica bifurcaciones y condicionales.
-* Reejecuta la prueba para confirmar que sigue en verde.
+### 3. Refactor (Clean Without Altering Behavior)
+* With the safety net of the green test:
+  * Remove duplicate code paths.
+  * Improve variable and parameter naming.
+  * Simplify branching and conditionals.
+* Re-run the test suite to confirm it remains green.

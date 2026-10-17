@@ -1,26 +1,26 @@
 # Changelog
 
-Todos los cambios notables en este proyecto serán documentados en este archivo.
+All notable changes to this project will be documented in this file.
 
-El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/), y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
 ## [0.1.0] - 2026-10-17
 
 ### Added
-- **Núcleo de Gobernanza**: Reglas universales en [`rules/AGENTS.md`](./rules/AGENTS.md) bajo la síntesis Karpathy × Pocock.
-- **Ciclo de Vida Determinista (6 Fases)**: Documentación completa en [`docs/METHODOLOGY.md`](./docs/METHODOLOGY.md) (SDD, Plan Atómico, TDD, QA, Seguridad y Release).
-- **Catálogo de Subagentes**: Especificación formal de roles y matriz de permisos PoLP en [`docs/ROLES.md`](./docs/ROLES.md).
-- **Vocabulario Ubicuo**: Glosario formal de ingeniería agéntica en [`docs/GLOSSARY.md`](./docs/GLOSSARY.md).
-- **Suite de Skills Operativas**:
-  - `align-and-plan`: Alineación técnica y grilling.
-  - `diagnose-bug`: Diagnóstico estricto de errores con bucle de fallo (Repro-First).
-  - `code-review`: Revisión en dos ejes (especificación y code smells).
-  - `tdd-verify`: Ciclo Rojo-Verde-Refactor con validación empírica.
-  - `version-bump`: Procedimiento de incremento SemVer con Dry-Plan.
-- **Colección de Plantillas**:
-  - `templates/adr-template.md`: Registro de decisiones arquitectónicas.
-  - `templates/sdd-spec-template.md`: Plantilla de especificación SDD.
-  - `templates/atomic-plan-template.md`: Plan de tareas atómicas con comandos de prueba.
-  - `templates/release-plan-template.md`: Plan de release con estrategia de rollback.
+- **Core Governance Model**: Universal agent operating rules in [`rules/AGENTS.md`](./rules/AGENTS.md) based on the Karpathy × Pocock synthesis.
+- **Deterministic 6-Phase Lifecycle**: Comprehensive guide in [`docs/METHODOLOGY.md`](./docs/METHODOLOGY.md) (SDD, Atomic Plan, TDD, QA Audit, Security/SAST, and Release Dry-Plan).
+- **Subagent Catalogue**: Formal roles and Principle of Least Privilege (PoLP) boundary matrix in [`docs/ROLES.md`](./docs/ROLES.md).
+- **Ubiquitous Domain Glossary**: Formal agentic engineering terminology and Mermaid domain mindmap in [`docs/GLOSSARY.md`](./docs/GLOSSARY.md).
+- **Operational Skills Suite**:
+  - `align-and-plan`: Pre-flight alignment and interactive grilling before coding.
+  - `diagnose-bug`: Deterministic bug diagnosis with tight feedback repro loop (Repro-First).
+  - `code-review`: Independent two-axis code review (specification compliance and code smell detection).
+  - `tdd-verify`: Test-driven development with empirical runtime verification (*Ground Truth*).
+  - `version-bump`: Semantic versioning increment protocol with Dry-Plan and changelog sync.
+- **Canonical Template Collection**:
+  - `templates/adr-template.md`: Architectural Decision Records.
+  - `templates/sdd-spec-template.md`: Spec-Driven Development technical specifications.
+  - `templates/atomic-plan-template.md`: Atomic task planning with verification commands.
+  - `templates/release-plan-template.md`: Release Dry-Plan with explicit rollback strategies.

@@ -1,52 +1,52 @@
-# Plan de Release y Despliegue (Dry-Plan): vX.Y.Z
+# Release & Deployment Plan (Dry-Plan): vX.Y.Z
 
-- **Versión Target**: vX.Y.Z
-- **Fecha Prevista**: AAAA-MM-DD
-- **Responsable / Agente**: Release Architect
-- **Autorización HITL**: Pendiente | Aprobado
-
----
-
-## 1. Resumen de Cambios (Changelog Preview)
-- **Tipo de Incremento SemVer**: MAJOR | MINOR | PATCH
-- **Cambios Principales**:
-  - `feat`: [Descripción]
-  - `fix`: [Descripción]
+- **Target Version**: vX.Y.Z
+- **Target Date**: YYYY-MM-DD
+- **Owner / Agent**: Release Architect
+- **HITL Authorization**: Pending | Approved
 
 ---
 
-## 2. Pre-Flight Checklist (Quality Gates Superados)
-- [ ] Suite de pruebas unitarias y de integración pasando al 100%.
-- [ ] Auditoría de tipos TypeScript (`tsc --noEmit`) sin errores.
-- [ ] Linter y formato de código validados.
-- [ ] Auditoría de seguridad SAST y dependencias (SCA) limpia.
+## 1. Summary of Changes (Changelog Preview)
+- **SemVer Bump Type**: MAJOR | MINOR | PATCH
+- **Key Changes**:
+  - `feat`: [Description]
+  - `fix`: [Description]
 
 ---
 
-## 3. Dry-Plan de Ejecución Paso a Paso
-Comandos que se ejecutarán secuencialmente tras la confirmación humana:
+## 2. Pre-Flight Checklist (Quality Gates Satisfied)
+- [ ] 100% test pass rate across unit and integration suites.
+- [ ] TypeScript type checks (`tsc --noEmit`) complete with zero errors.
+- [ ] Linter and formatting validation passing cleanly.
+- [ ] SAST security scan and dependency vulnerability audit cleared.
 
-1. **Sincronización de Versión**:
-   - Actualización de ficheros de metadatos de versión.
-2. **Generación de Tag**:
+---
+
+## 3. Step-by-Step Execution Dry-Plan
+Sequential operations executed upon human confirmation:
+
+1. **Version Synchronization**:
+   - Update version metadata files.
+2. **Git Tag Generation**:
    ```bash
    git tag -a vX.Y.Z -m "Release vX.Y.Z"
    ```
-3. **Despliegue / Publicación**:
+3. **Deployment / Package Publication**:
    ```bash
-   # Comando exacto de despliegue o publicación de paquete
+   # Exact publish or deployment command
    ```
 
 ---
 
-## 4. Estrategia de Rollback Inmediato
-En caso de fallo en el health check posterior al release:
+## 4. Immediate Rollback Strategy
+If post-release health checks report anomalies:
 
-1. **Procedimiento de Reversión**:
-   - Pasos para restaurar la versión anterior en menos de 5 minutos.
-2. **Comando de Rollback**:
+1. **Rollback Workflow**:
+   - Step-by-step procedure to restore the previous stable version in under 5 minutes.
+2. **Rollback Command**:
    ```bash
-   # Comando de rollback automatizado
+   # Automated rollback execution command
    ```
-3. **Plan de Notificación**:
-   - Registro del incidente y notificación al equipo.
+3. **Incident Protocol**:
+   - Incident logging and team notification workflow.

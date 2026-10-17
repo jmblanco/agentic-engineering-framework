@@ -1,35 +1,35 @@
-# Plan de Tareas Atómicas: [Nombre de la Funcionalidad]
+# Atomic Task Plan: [Feature Name]
 
-- **Especificación Asociada**: [`sdd-spec.md`](./sdd-spec.md)
-- **Estado**: En Progreso | Completado
-
----
-
-## 🎯 Directrices de Ejecución
-1. Cada tarea debe completarse antes de pasar a la siguiente.
-2. Cada tarea incluye obligatoriamente su **comando de validación real (Ground Truth)**.
-3. El código no se considera finalizado hasta que el comando de validación se ejecute en verde.
+- **Associated Specification**: [`sdd-spec.md`](./sdd-spec.md)
+- **Status**: In Progress | Completed
 
 ---
 
-## 📋 Lista de Tareas Atómicas
+## 🎯 Execution Guidelines
+1. Complete each atomic task sequentially before advancing.
+2. Every task must declare its **empirical verification command (Ground Truth)**.
+3. Code is never considered complete until the verification command passes in green.
 
-### Tarea 1: [Descripción de la Tarea]
-- **Objetivo**: Crear o modificar un módulo acotado.
-- **Ficheros Afectados**: `src/path/to/file.ts`, `tests/path/to/file.test.ts`.
-- **Fase TDD**:
-  - [ ] Escribir prueba que falla (Fase Roja).
-  - [ ] Implementar código mínimo (Fase Verde).
-  - [ ] Refactorización si aplica.
-- **Comando de Verificación**:
+---
+
+## 📋 Atomic Task Checklist
+
+### Task 1: [Task Description]
+- **Scope**: Create or modify an isolated module.
+- **Impacted Files**: `src/path/to/file.ts`, `tests/path/to/file.test.ts`.
+- **TDD Workflow**:
+  - [ ] Write failing test (Red Phase).
+  - [ ] Write minimal code (Green Phase).
+  - [ ] Refactor while staying green.
+- **Verification Command**:
   ```bash
   npm.cmd test -- tests/path/to/file.test.ts
   ```
 
-### Tarea 2: [Descripción de la Tarea]
-- **Objetivo**: Integración con componentes adyacentes o API.
-- **Ficheros Afectados**: `src/path/to/module.ts`.
-- **Comando de Verificación**:
+### Task 2: [Task Description]
+- **Scope**: Integration with adjacent modules or API.
+- **Impacted Files**: `src/path/to/module.ts`.
+- **Verification Command**:
   ```bash
   npm.cmd run build
   ```

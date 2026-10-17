@@ -1,31 +1,31 @@
-# Especificación Técnica (SDD): [Nombre de la Funcionalidad]
+# Technical Specification (SDD): [Feature Name]
 
-- **Fecha**: AAAA-MM-DD
-- **Autor / Agente**: [Nombre o Rol]
-- **Estado**: Borrador | En Revisión | Aprobado (HITL)
-
----
-
-## 1. Resumen y Propósito
-Explicación concisa del problema que se aborda y la solución propuesta desde una perspectiva de valor.
+- **Date**: YYYY-MM-DD
+- **Author / Agent**: [Name or Role]
+- **Status**: Draft | In Review | Approved (HITL)
 
 ---
 
-## 2. Alineación Previa (Respuestas del Grilling)
-Resumen de las preguntas críticas resueltas con el humano antes de definir la arquitectura:
-
-- **P1: [Pregunta formulada]**
-  - *Respuesta*: [Decisión tomada]
-- **P2: [Pregunta formulada]**
-  - *Respuesta*: [Decisión tomada]
+## 1. Summary & Value Proposition
+Concise explanation of the problem addressed and the proposed solution.
 
 ---
 
-## 3. Modelo de Datos y Contratos de Interfaz
-Definición estricta de esquemas de datos, tipos y firmas de funciones (TypeScript / JSON Schema):
+## 2. Upfront Alignment (Grilling Findings)
+Summary of critical clarifying questions answered with the human engineer:
+
+- **Q1: [Formulated Question]**
+  - *Outcome*: [Selected option or decision]
+- **Q2: [Formulated Question]**
+  - *Outcome*: [Selected option or decision]
+
+---
+
+## 3. Data Model & Interface Contracts
+Strict definition of domain models, schemas, and API contracts (TypeScript / JSON Schema):
 
 ```typescript
-// Ejemplo de interfaz o tipo de dominio
+// Example interface or domain schema
 export interface FeatureConfig {
   id: string;
   name: string;
@@ -36,14 +36,14 @@ export interface FeatureConfig {
 
 ---
 
-## 4. Casos Límite (*Edge Cases*) y Manejo de Errores
-- [ ] Entrada vacía o nula.
-- [ ] Fallos de red o timeouts en servicios externos.
-- [ ] Caracteres especiales o desbordamiento de límites.
+## 4. Edge Cases & Error Handling
+- [ ] Empty or null inputs.
+- [ ] Network errors, timeouts, or degraded upstream states.
+- [ ] Special character payloads and boundary overflows.
 
 ---
 
-## 5. Criterios de Aceptación (Verificación Empírica)
-1. **Criterio 1**: [Comportamiento esperado verificable mediante prueba automática].
-2. **Criterio 2**: [Tiempo de respuesta o restricción de rendimiento comprobable].
-3. **Criterio 3**: [Cobertura de tests o ausencia de advertencias del linter].
+## 5. Acceptance Criteria (Empirical Verification)
+1. **Criterion 1**: [Expected behavior verifiable by automated test].
+2. **Criterion 2**: [Performance or resource boundary check].
+3. **Criterion 3**: [Clean type-check and linter validation].

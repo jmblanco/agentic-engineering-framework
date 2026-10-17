@@ -1,88 +1,88 @@
-# AGENTS.md — Reglas Universales del Agentic Engineering Framework (AEF)
+# AGENTS.md — Universal Rules for Agentic Engineering Framework (AEF)
 
-Este archivo define las reglas de gobernanza, estándares de desarrollo y principios de ingeniería para cualquier asistente de IA que opere dentro del marco **Agentic Engineering Framework (AEF)**.
+This document establishes the governance model, engineering standards, and execution constraints for any AI assistant operating within the **Agentic Engineering Framework (AEF)**.
 
-Inspirado en la síntesis de **Andrej Karpathy** (simplicidad radical, ciclos de retroalimentación estrechos, verificación empírica contra la realidad) y **Matt Pocock** (alineación interactiva previa, lenguaje ubicuo, tipado estricto y revisión en dos ejes).
-
----
-
-## 1. Principios Fundamentales (Karpathy × Pocock)
-
-### A. Simplicidad Radical (Occam's Razor / Karpathy Style)
-* **Evita la sobreingeniería prematura**: No crees abstracciones complejas, fábricas o arquitecturas innecesarias para resolver problemas que se solventan limpiamente con soluciones directas.
-* **Archivos auto-contenidos y modulares**: Favorece módulos legibles de arriba a abajo con responsabilidades atómicas.
-* **Cero "Vibe Coding" a ciegas**: Queda terminantemente prohibido generar código especulativo sin validación empírica ni justificación técnica.
-
-### B. Ciclos de Retroalimentación Estrechos (*Tight Feedback Loops*)
-* **Verificación con la realidad (Ground Truth)**: Nunca asumas que el código funciona solo porque "parece correcto". Ejecuta siempre pruebas automatizadas, linters o scripts de verificación antes de dar por buena una tarea.
-* **Repro-First en Diagnóstico de Errores**: Antes de modificar una sola línea de código para solucionar un bug, construye un test unitario, script o comando que reproduzca el fallo (**fase roja**). Si no puedes reproducir el fallo de forma determinista, no intentes adivinar la solución.
-
-### C. Alineación Previa al Desarrollo (*Grilling before Coding*)
-* **Pregunta antes de asumir**: Si un requisito, contrato de datos o decisión de diseño es ambiguo, utiliza preguntas interactivas antes de escribir código.
-* **Lenguaje Ubicuo**: Consulta y mantén sincronizado [`docs/GLOSSARY.md`](../docs/GLOSSARY.md). Queda prohibido inventar términos divergentes cuando ya existe una definición formal.
+Rooted in the synthesis of **Andrej Karpathy** (radical simplicity, tight feedback loops, empirical ground-truth verification) and **Matt Pocock** (upfront interactive alignment, ubiquitous language, strict typing, and two-axis review).
 
 ---
 
-## 2. Gobernanza de Agentes y Límites Operativos (PoLP)
+## 1. Core Principles (Karpathy × Pocock)
 
-Toda interacción de agentes autónomos debe regirse por el **Principio de Mínimo Privilegio (PoLP)** y supervisión **Human-in-the-Loop (HITL)**:
+### A. Radical Simplicity (Occam's Razor / Karpathy Style)
+* **Avoid premature over-engineering**: Do not introduce complex abstractions, factories, or multi-layered architectures for tasks solved cleanly in minimal code.
+* **Self-contained and modular files**: Favor files readable from top to bottom with atomic responsibilities.
+* **Zero blind "Vibe Coding"**: Speculative code generation without empirical validation or clear architectural purpose is strictly prohibited.
+
+### B. Tight Feedback Loops
+* **Ground-Truth Verification**: Never assume code works simply because it compiles mentally. Always execute automated test suites, linters, or verification commands before marking a task complete.
+* **Repro-First Bug Diagnosis**: Before modifying any production code to fix a bug, build a unit test, script, or command that reproduces the failure (**Red phase**). If you cannot reproduce the bug deterministically, do not guess the solution.
+
+### C. Upfront Alignment (*Grilling before Coding*)
+* **Ask before assuming**: When a requirement, data contract, or UX expectation is ambiguous, initiate structured interactive questions before writing code.
+* **Ubiquitous Language**: Consult and maintain synchronization with [`docs/GLOSSARY.md`](../docs/GLOSSARY.md). Do not invent divergent terminology when a formal definition exists.
+
+---
+
+## 2. Agent Governance & Operational Boundaries (PoLP)
+
+All autonomous agent operations are governed by the **Principle of Least Privilege (PoLP)** and mandatory **Human-in-the-Loop (HITL)** checkpoints:
 
 ```mermaid
 flowchart TD
-    subgraph Governance["Gobernanza de Agentes (AEF)"]
-        A["Entrada del Usuario"] --> B{"¿Requisito Ambiguo?"}
-        B -- Sí --> C["Alineación HITL (Preguntas / SDD Spec)"]
-        B -- No --> D["Plan Atómico Verificable"]
+    subgraph Governance["Agent Governance (AEF)"]
+        A["User Input / Feature Request"] --> B{"Ambiguous Requirement?"}
+        B -- Yes --> C["HITL Alignment (Grilling / SDD Spec)"]
+        B -- No --> D["Verifiable Atomic Plan"]
         C --> D
-        D --> E["TDD (Fase Roja -> Verde -> Refactor)"]
-        E --> F["Auditoría QA & Linter"]
-        F --> G["Auditoría de Seguridad (PoLP / SAST)"]
-        G --> H{"¿Operación Destructiva / Release?"}
-        H -- Sí --> I["Dry-Plan & Autorización HITL Requerida"]
-        H -- No --> J["Ejecución Concluida"]
+        D --> E["TDD (Red -> Green -> Refactor)"]
+        E --> F["QA Audit & Type Check"]
+        F --> G["Security Audit (PoLP / SAST)"]
+        G --> H{"Destructive Mutation / Deploy?"}
+        H -- Yes --> I["Dry-Plan & Mandatory HITL Approval"]
+        H -- No --> J["Execution Completed"]
         I --> J
     end
 ```
 
-### Reglas de Seguridad Inquebrantables
-1. **Acceso de Solo Lectura por Defecto**: Los agentes de arquitectura y auditoría operan sin permisos de modificación destructiva.
-2. **Prohibición de Destrucción Desatendida**: Comandos como `rm -rf`, `DROP TABLE`, deploys a producción o borrado de ramas requieren autorización humana explícita previa con un *Dry-Plan* visible.
-3. **Manejo Seguro de Secretos**: Ninguna credencial, API key, token o dato confidencial debe escribirse en código plano o logs; utiliza variables de entorno y gestores de secretos.
+### Inviolable Security Rules
+1. **Read-Only by Default**: Architectural and auditing agents operate without write or destructive permissions on production systems.
+2. **No Unattended Destructive Operations**: Commands such as `rm -rf`, `DROP TABLE`, direct production deploys, or branch deletions require explicit human approval via a transparent *Dry-Plan*.
+3. **Secure Secret Management**: API keys, credentials, and sensitive tokens must never appear in plaintext code or logs; use environment variables and secret managers.
 
 ---
 
-## 3. Catálogo de Skills Operativas
+## 3. Operational Skills Catalogue
 
-Los agentes deben invocar las skills estandarizadas ubicadas en `skills/`:
+Agents must execute standardized skills located in `skills/`:
 
-1. **`align-and-plan`**: Entrevista inicial, resolución de ambigüedad y descomposición de tareas con verificación asociada.
-2. **`diagnose-bug`**: Flujo de diagnóstico determinista (loop de reproducción -> aislamiento de mutación -> parche mínimo -> verificación verde).
-3. **`code-review`**: Evaluación independiente en dos ejes (Fidelidad a la Especificación + Detección de Code Smells).
-4. **`tdd-verify`**: Ciclo de desarrollo guiado por pruebas y validación real contra el entorno de ejecución.
-5. **`version-bump`**: Protocolo de incremento de versión SemVer y sincronización de changelog y metadatos.
+1. **`align-and-plan`**: Pre-flight alignment, ambiguity resolution, and atomic task breakdown with associated verification commands.
+2. **`diagnose-bug`**: Deterministic bug diagnosis workflow (reproduction loop -> mutation isolation -> minimal patch -> green verification).
+3. **`code-review`**: Independent two-axis evaluation (Specification Compliance + Code Smell Detection).
+4. **`tdd-verify`**: Test-driven development cycle with ground-truth verification against the active runtime.
+5. **`version-bump`**: Semantic versioning increment protocol with changelog and metadata synchronization.
 
 ---
 
-## 4. Estructura de Proyecto Canónica
+## 4. Canonical Repository Structure
 
 ```text
 agentic-engineering-framework/
-├── README.md               # Manifiesto y guía visual del framework
-├── CHANGELOG.md            # Historial de cambios siguiendo Keep a Changelog
-├── LICENSE                 # Licencia MIT
+├── README.md               # Framework manifesto and visual guide
+├── CHANGELOG.md            # Release history following Keep a Changelog
+├── LICENSE                 # MIT License
 ├── rules/
-│   └── AGENTS.md           # Reglas universales para agentes de IA
+│   └── AGENTS.md           # Universal instructions for AI agents
 ├── docs/
-│   ├── METHODOLOGY.md      # Protocolo exhaustivo de las 6 fases inmutables
-│   ├── ROLES.md            # Catálogo de agentes, permisos y límites
-│   └── GLOSSARY.md         # Vocabulario ubicuo del framework
-├── skills/                 # Procedimientos y runbooks ejecutables
+│   ├── METHODOLOGY.md      # Detailed 6-phase deterministic lifecycle
+│   ├── ROLES.md            # Agent catalogue and privilege matrix
+│   └── GLOSSARY.md         # Ubiquitous domain language
+├── skills/                 # Executable runbooks and workflows
 │   ├── align-and-plan/
 │   ├── code-review/
 │   ├── diagnose-bug/
 │   ├── tdd-verify/
 │   └── version-bump/
-└── templates/              # Plantillas de especificaciones, ADRs y releases
+└── templates/              # Standardized documentation templates
     ├── adr-template.md
     ├── sdd-spec-template.md
     ├── atomic-plan-template.md

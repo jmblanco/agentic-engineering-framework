@@ -1,49 +1,49 @@
-# Plantilla de Architectural Decision Record (ADR)
+# Architectural Decision Record (ADR) Template
 
-- **Identificador**: ADR-XXXX
-- **Título**: Breve descripción de la decisión técnica
-- **Fecha**: AAAA-MM-DD
-- **Estado**: Propuesto | Aceptado | Rechazado | Obsoleto
-- **Decisores**: [Nombres o roles de los participantes]
-
----
-
-## 1. Contexto y Planteamiento del Problema
-Describe la situación actual, los requisitos de negocio o técnicos y las fuerzas en conflicto que motivan la necesidad de tomar una decisión formal.
+- **Identifier**: ADR-XXXX
+- **Title**: Short description of the technical decision
+- **Date**: YYYY-MM-DD
+- **Status**: Proposed | Accepted | Rejected | Superseded
+- **Deciders**: [Participants or roles involved]
 
 ---
 
-## 2. Opciones Evaluadas
-
-### Opción A: [Nombre de la Opción A]
-* **Ventajas**:
-  - Ventaja 1
-  - Ventaja 2
-* **Desventajas / Riesgos**:
-  - Desventaja 1
-  - Desventaja 2
-
-### Opción B: [Nombre de la Opción B]
-* **Ventajas**:
-  - Ventaja 1
-  - Ventaja 2
-* **Desventajas / Riesgos**:
-  - Desventaja 1
-  - Desventaja 2
+## 1. Context and Problem Statement
+Describe the current context, business drivers, or technical forces motivating the need for an architectural decision.
 
 ---
 
-## 3. Decisión Adoptada y Justificación
-Explicación concisa de la opción elegida y el porqué. Detallar por qué las desventajas de la opción seleccionada son asumibles frente a las alternativas.
+## 2. Considered Options
+
+### Option A: [Option Name]
+* **Pros**:
+  - Pro 1
+  - Pro 2
+* **Cons / Risks**:
+  - Con 1
+  - Con 2
+
+### Option B: [Option Name]
+* **Pros**:
+  - Pro 1
+  - Pro 2
+* **Cons / Risks**:
+  - Con 1
+  - Con 2
 
 ---
 
-## 4. Consecuencias y Compensaciones (*Trade-offs*)
+## 3. Decision Outcome and Rationale
+State the selected option and justify why it was chosen. Explain why its downsides are acceptable compared to rejected alternatives.
 
-### Consecuencias Positivas:
-- Beneficio 1
-- Beneficio 2
+---
 
-### Consecuencias Negativas o Costes de Mantenimiento:
-- Limitación o nuevo requisito operativo 1
-- Deuda o mitigación necesaria 2
+## 4. Consequences and Trade-offs
+
+### Positive Consequences:
+- Advantage 1
+- Advantage 2
+
+### Negative Consequences or Operational Overhead:
+- Limitation or maintenance requirement 1
+- Necessary migration or follow-up 2

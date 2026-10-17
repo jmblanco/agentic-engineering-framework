@@ -1,39 +1,39 @@
 ---
 name: diagnose-bug
-description: Procedimiento disciplinado para diagnosticar y resolver errores o comportamientos inesperados. Usar cuando el usuario reporte un bug, fallo en consola o comportamiento erróneo.
+description: Disciplined procedure for diagnosing and fixing defects. Execute whenever a bug, console error, or unexpected behavior is reported.
 ---
 
 # Diagnosing Bugs (Ground-Truth & Repro Loop)
 
-Inspirado en la regla de oro de **Andrej Karpathy** (verificación empírica contra la realidad) y el skill `diagnosing-bugs` de **Matt Pocock**. No intentes adivinar la causa de un fallo mirando fijamente el código.
+Rooted in **Andrej Karpathy's** golden rule (empirical verification against reality) and **Matt Pocock's** `diagnosing-bugs` workflow. Never guess the root cause of a defect by staring at static code.
 
 ---
 
-## Regla Inquebrantable
-> **No modifiques código de producción sin antes tener una prueba, script o comando que reproduzca el fallo (Fase Roja).**
+## Non-Negotiable Rule
+> **Never modify production code without first establishing a reproducible test, script, or command that reproduces the failure (Red Phase).**
 
 ---
 
-## Fases del Diagnóstico
+## Diagnostic Phases
 
-### Fase 1: Construir el Bucle de Retroalimentación (*Tight Loop*)
-Construye la forma más rápida y determinista de disparar el fallo:
-1. **Prueba unitaria / integración fallida** (la mejor opción): un test mínimo en Vitest/Jest que falle exactamente por el síntoma reportado.
-2. **Script de reproducción mínimo**: Un archivo temporal o comando de terminal de 10 líneas que ejecute la función problemática.
-3. **Comando de compilación o inspección**: Verificación de tipos con `npx.cmd tsc --noEmit` o lint.
+### Phase 1: Build the Tight Feedback Loop
+Construct the fastest, most deterministic trigger for the defect:
+1. **Failing Unit / Integration Test** (Primary choice): A minimal test in Vitest/Jest/pytest capturing the reported symptom.
+2. **Minimal Repro Script**: A 10-line standalone script or terminal command executing the problematic code path.
+3. **Compilation or Linter Command**: Type check validation (`tsc --noEmit`) or lint command when relevant.
 
-**Criterio de éxito de la Fase 1**: Puedes invocar **un solo comando** que actualmente falla y muestra el error de forma clara.
+**Phase 1 Success Criterion**: You can run **a single command** that reliably fails and demonstrates the defect.
 
-### Fase 2: Aislar la Mutación y Causa Raíz
-* Rastrea el flujo de datos desde la entrada hasta la línea donde ocurre el fallo.
-* Agrega logs temporales o aserciones si es necesario para verificar hipótesis.
-* No inventes explicaciones complejas: busca la causa más simple e inmediata (tipos incorrectos, mutaciones de estado, condiciones de carrera, rutas erróneas).
+### Phase 2: Isolate Root Cause & Mutation Path
+* Trace data flow from user input to the failing line.
+* Add temporary assertion statements or debug logs to validate hypotheses.
+* Avoid overly complex explanations: inspect the simplest point of failure (incorrect types, state mutations, race conditions, invalid paths).
 
-### Fase 3: Parche Quirúrgico Mínimo
-* Aplica la modificación más pequeña y limpia posible que solucione la causa raíz.
-* No realices refactorizaciones no solicitadas en el mismo cambio.
+### Phase 3: Minimal Surgical Patch
+* Apply the smallest, cleanest modification that resolves the root cause.
+* Do not perform unrelated refactoring in the same patch.
 
-### Fase 4: Verificación Verde (*Ground Truth*)
-1. Ejecuta nuevamente el bucle de la Fase 1: debe pasar en verde.
-2. Ejecuta la suite de pruebas completa o el build del proyecto (`npm.cmd run build`) para garantizar que no hay regresiones.
-3. Elimina cualquier log o archivo de depuración temporal.
+### Phase 4: Ground-Truth Green Verification
+1. Re-run the Phase 1 loop: it must pass in green.
+2. Run the complete test suite or project build (`npm.cmd test`, `npm.cmd run build`) to ensure zero regressions.
+3. Remove temporary debug artifacts and logs.

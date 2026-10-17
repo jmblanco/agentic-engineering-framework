@@ -1,24 +1,24 @@
-# GLOSSARY.md — Vocabulario Ubicuo de AEF
+# GLOSSARY.md — Ubiquitous Language for AEF
 
-Este glosario define los términos de dominio del **Agentic Engineering Framework (AEF)**. Garantiza que desarrolladores humanos y agentes de inteligencia artificial compartan exactamente el mismo modelo mental sin ambigüedad terminológica.
+This glossary defines domain concepts for the **Agentic Engineering Framework (AEF)**. It ensures human engineers and autonomous AI agents share the exact same mental model without semantic drift or ambiguity.
 
 ---
 
 ```mermaid
 mindmap
   root((AEF Glossary))
-    Ingenieria Agéntica
+    Agentic Engineering
       HITL Human in the Loop
       Ground Truth
       Vibe Coding
       Tight Feedback Loop
-    Fases y Metodologia
+    Lifecycle & Methodology
       SDD Spec Driven Dev
       Atomic Tasks
       Repro-First Red-Green
       Two-Axis Review
-    Seguridad y Operaciones
-      PoLP Minimo Privilegio
+    Security & Ops
+      PoLP Least Privilege
       Dry-Plan
       SemVer Versioning
       ADR Architecture Record
@@ -26,19 +26,19 @@ mindmap
 
 ---
 
-### Términos de Dominio
+### Domain Terms
 
-| Término | Definición | Contexto / Ubicación |
+| Term | Definition | Context / Reference |
 | :--- | :--- | :--- |
-| **Human-in-the-Loop (HITL)** | Principio de gobernanza donde las decisiones críticas de diseño, cambios de especificación y mutaciones destructivas en producción requieren aprobación humana explícita. | Gobernanza y Filosofía |
-| **Ground Truth** | Verificación empírica e irrefutable contra el entorno de ejecución real (pruebas pasando, compilación limpia, respuestas HTTP) frente a la asunción mental o código especulativo. | Principio Karpathy |
-| **Vibe Coding** | Práctica no estructurada de generar bloques de código con IA basándose en corazonadas o pruebas superficiales sin justificación arquitectónica ni tests deterministas. | Anti-patrón mitigado por AEF |
-| **Tight Feedback Loop** | Ciclo de retroalimentación ultrarrápido donde el agente valida cada pequeño cambio en segundos mediante un comando de fallo/éxito determinista. | `skills/diagnose-bug` |
-| **Spec-Driven Development (SDD)** | Enfoque de ingeniería donde ninguna línea de código se escribe sin una especificación técnica previa cerrada, validada y con criterios de aceptación explícitos. | Fase 1 del ciclo de vida |
-| **Grilling** | Proceso iterativo de preguntas estructuradas donde el agente interroga activamente al humano para desambiguar requerimientos antes de planificar. | `skills/align-and-plan` |
-| **Atomic Task** | Unidad mínima de trabajo de ingeniería independiente, que modifica un alcance acotado y cuenta con un comando de validación individualizado. | Fase 2 del ciclo de vida |
-| **Repro-First (Fase Roja)** | Regla inquebrantable de diagnóstico que exige reproducir un fallo mediante un test o script determinista antes de modificar código fuente. | `skills/diagnose-bug` |
-| **Two-Axis Review** | Auditoría de código que evalúa simultáneamente dos dimensiones independientes: 1) Conformidad con la especificación y 2) Detección de *Code Smells* y calidad técnica. | `skills/code-review` |
-| **Principle of Least Privilege (PoLP)** | Restricción estricta de permisos para que cada agente opere únicamente con las herramientas y capacidades indispensables para su rol. | Fase 5 de Seguridad |
-| **Dry-Plan** | Simulación detallada previa a una ejecución de release o despliegue, mostrando exactamente qué cambiará y cuál es el procedimiento de rollback sin alterar el entorno. | Fase 6 de Release |
-| **Architecture Decision Record (ADR)** | Documento corto y versionado que captura una decisión técnica relevante, su justificación, alternativas evaluadas y compensaciones (*trade-offs*). | `templates/adr-template.md` |
+| **Human-in-the-Loop (HITL)** | Governance model requiring explicit human authorization for high-stakes decisions, architectural changes, and production mutations. | Governance & Philosophy |
+| **Ground Truth** | Irrefutable empirical verification against the real execution environment (passing test suites, clean compilation, valid HTTP payloads) as opposed to theoretical assumptions. | Karpathy Principle |
+| **Vibe Coding** | Anti-pattern of writing software by relying on generative AI prompts without deterministic tests, architectural justification, or verification loops. | Mitigated by AEF |
+| **Tight Feedback Loop** | Ultra-fast execution cycle where an agent verifies each modification within seconds using a deterministic pass/fail command. | `skills/diagnose-bug` |
+| **Spec-Driven Development (SDD)** | Engineering discipline ensuring no production code is written prior to an approved, unambiguous technical specification with explicit acceptance criteria. | Phase 1 of Lifecycle |
+| **Grilling** | Structured interactive interrogation process where an AI agent prompts the human engineer to eliminate ambiguities before drafting plans. | `skills/align-and-plan` |
+| **Atomic Task** | Self-contained, isolated unit of work addressing a focused scope and paired with an empirical verification command. | Phase 2 of Lifecycle |
+| **Repro-First (Red Phase)** | Non-negotiable debugging rule requiring reproducible proof of failure via a script or test before altering production code. | `skills/diagnose-bug` |
+| **Two-Axis Review** | Code review auditing two independent dimensions: 1) Specification compliance and 2) Code quality & anti-pattern detection. | `skills/code-review` |
+| **Principle of Least Privilege (PoLP)** | Security standard restricting agent access exclusively to tools and permissions required for its designated role. | Phase 5 Security Audit |
+| **Dry-Plan** | Transparent pre-execution simulation detailing exact operations and rollback plans before running mutating or release commands. | Phase 6 Release Planning |
+| **Architecture Decision Record (ADR)** | Short, versioned document capturing an important architectural decision, its rationale, evaluated alternatives, and associated trade-offs. | `templates/adr-template.md` |
