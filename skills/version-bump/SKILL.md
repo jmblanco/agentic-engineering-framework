@@ -1,56 +1,102 @@
 ---
 name: version-bump
-description: Disciplined procedure for Semantic Versioning (SemVer) increments, synchronizing metadata files, changelogs, and release tags.
+description: Disciplined procedure for Semantic Versioning (SemVer) increments via Conventional Commits, multi-ecosystem metadata synchronization, Keep a Changelog updates, mandatory Dry-Plan execution, and GitHub Flow PR drafting.
 ---
 
-# Version Bump Procedure
+# Version Bump & Release Procedure
 
-This procedure ensures that during any version increment (Major, Minor, or Patch), all sources of truth across the repository remain 100% consistent.
-
----
-
-## 📋 Checklist of Files to Update
-
-When bumping a version (e.g. from `0.1.0` to `0.2.0`), **YOU MUST** update the following components together:
-
-1. **Project Version Manifests**:
-   - `package.json` (if applicable to the target project): `"version": "X.Y.Z"`.
-   - `package-lock.json` (if applicable).
-2. **`CHANGELOG.md`**:
-   - Create a new entry under the header following the *Keep a Changelog* standard:
-     ```markdown
-     ## [X.Y.Z] - YYYY-MM-DD
-
-     ### Added | Changed | Deprecated | Removed | Fixed | Security
-     - Concise description of notable changes with links to commits or PRs.
-     ```
-   - Maintain reverse chronological order.
-3. **Release Plan (Dry-Plan)**:
-   - Draft the pre-flight plan using [`templates/release-plan-template.md`](../../templates/release-plan-template.md).
-4. **Git Tag & Release**:
-   - Create an annotated tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`.
-   - Publish a GitHub Release referencing the corresponding `CHANGELOG.md` section.
+This procedure coordinates the full release cycle for the **Release Architect** (AEF Phase 6), ensuring that version increments, metadata manifests, changelog entries, and Pull Request drafts remain 100% synchronized and protected by Human-in-the-Loop (HITL) authorization.
 
 ---
 
-## 🧭 SemVer Guidelines (Semantic Versioning)
+## 🧭 1. Conventional Commits & SemVer Derivation
 
-- **MAJOR (`X.0.0`)**: Incompatible breaking changes (breaking changes in agent communication protocols, skill signatures, or data contracts).
-- **MINOR (`0.Y.0` or `1.Y.0`)**: Backward-compatible new features, skills, templates, or agent profiles.
-- **PATCH (`0.1.Z` or `1.0.Z`)**: Backward-compatible bug fixes, documentation adjustments, or minor optimizations.
+Inspect git history relative to the base branch or previous tag:
+```bash
+git log $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~10")..HEAD --oneline
+```
+
+- **MAJOR (`X.0.0`)**: Breaking changes in public APIs, data contracts, skill protocols, or commits containing `BREAKING CHANGE:` / `feat!:` / `fix!:`.
+- **MINOR (`x.Y.0`)**: Backward-compatible new features, new skills, templates, or capabilities (`feat:`).
+- **PATCH (`x.y.Z`)**: Backward-compatible bug fixes, performance improvements, documentation, or maintenance (`fix:`, `perf:`, `refactor:`, `chore:`, `docs:`).
 
 ---
 
-## 🛠️ Step-by-Step Execution Workflow
+## 📋 2. Multi-Ecosystem Points of Truth
+
+Synchronize all version files corresponding to the repository stack:
+* **Node.js / TypeScript**: `package.json` (`"version"`), `package-lock.json`.
+* **Python**: `pyproject.toml` (`version`), `setup.cfg`.
+* **Go**: `version.go` or Git tags.
+* **Rust**: `Cargo.toml` (`[package].version`).
+* **Cloud & Kubernetes**: `Chart.yaml` (`version` and `appVersion`), Kustomize overlays.
+* **Documentation**: `CHANGELOG.md` following [Keep a Changelog](https://keepachangelog.com/).
+
+---
+
+## 📝 3. `CHANGELOG.md` Maintenance
+
+Add a new section under the root heading in reverse chronological order:
+
+```markdown
+## [X.Y.Z] - YYYY-MM-DD
+
+### Added
+- Concise summary of new features with PR/commit references.
+
+### Changed
+- Notable updates to existing workflows or contracts.
+
+### Fixed
+- Addressed bugs and edge-case resolutions.
+
+### Security
+- Vulnerability remediations or permission restrictions.
+```
+
+---
+
+## 🚀 4. Step-by-Step Execution Workflow
 
 1. **Verify Quality Gates**:
-   - 100% test pass rate, clean linter execution, and zero security warnings.
-2. **Update Version Numbers** in metadata files and `CHANGELOG.md`.
-3. **Verify Consistency**:
-   - Ensure no stale references to previous versions remain.
-4. **Present Dry-Plan to Human (HITL)** and request explicit confirmation.
-5. **Commit and Tag**:
+   - QA Audit (Phase 4): 100% tests passing, clean linter, and zero type errors.
+   - Security Audit (Phase 5): Zero High/Critical CVEs and verified PoLP.
+2. **Calculate SemVer Bump**: Analyze commit messages since last tag.
+3. **Synchronize Files**: Bump version across manifests and write `CHANGELOG.md` section.
+4. **Draft the Dry-Plan**: Fill [`templates/release-plan-template.md`](../../templates/release-plan-template.md) detailing exact release and rollback commands.
+5. **Generate GitHub Flow PR Draft**: Prepare the PR title and description.
+6. **Request HITL Confirmation**: Present the dry-plan to the human engineer.
+7. **Execute Tagging & Commit (Post-Approval Only)**:
    ```bash
    git commit -m "chore(release): bump version to vX.Y.Z"
    git tag -a vX.Y.Z -m "Release vX.Y.Z"
    ```
+
+> [!CAUTION]
+> **Git Discipline**: Never execute unattended `git push`, tag publication, or `gh pr create` without explicit user sign-off.
+
+---
+
+## 📬 5. GitHub Flow PR Draft Format
+
+When drafting the release pull request, format the body as follows:
+
+```markdown
+## 📦 Release vX.Y.Z
+
+### 🎯 Overview & SemVer Increment
+- **Bump Level**: MAJOR | MINOR | PATCH
+- **Target Tag**: `vX.Y.Z`
+- **Associated Dry-Plan**: Attached below
+
+### 📋 Changelog Preview
+[Insert markdown from CHANGELOG.md for vX.Y.Z]
+
+### 🧪 Verification & Quality Evidence
+- Unit/Integration Tests: PASS (100% green)
+- Static Analysis / Types: PASS (zero warnings)
+- Security & SAST Audit: PASS (zero high/crit CVEs)
+
+### 🔄 Rollback Summary
+Immediate rollback command: `[Rollback command from Dry-Plan]`
+```

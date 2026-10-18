@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![AEF Version](https://img.shields.io/badge/Version-v0.1.0-blue.svg?style=for-the-badge)
+![AEF Version](https://img.shields.io/badge/Version-v0.2.0-blue.svg?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)
 ![Standard](https://img.shields.io/badge/Architecture-Clean_%26_Deterministic-blue?style=for-the-badge)
 ![Philosophy](https://img.shields.io/badge/Philosophy-Karpathy_%C3%97_Pocock-black?style=for-the-badge)
@@ -49,7 +49,7 @@ flowchart LR
     class Human human;
 ```
 
-For full details on inputs, outputs, and quality gates for every phase, refer to [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md).
+For full details on inputs, outputs, and quality gates for every phase, refer to [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) and execute via [`skills/agentic-lifecycle`](skills/agentic-lifecycle/SKILL.md).
 
 ---
 
@@ -71,15 +71,54 @@ graph TD
     SEC -->|"Clean Audit"| REL
 ```
 
-| Agent Role | Primary Responsibility | Tools & Boundaries |
-| :--- | :--- | :--- |
-| **System Architect** | Architectural design, ADRs, strict data contracts, and visual topology. | Read-only + docs. No destructive commands. |
-| **TDD Implementer** | Test-driven implementation of logic and components. | Local unit/integration tests and minimal implementation code. |
-| **QA Automation Lead** | Empirical build, linter, strict typing, and WCAG accessibility audits. | Execution of linters, compiler, and test suites. |
-| **Security Auditor** | OWASP Top 10 auditing, PoLP enforcement, SAST, and container hardening. | Static analysis and dependency scanners (SCA). |
-| **Release Architect** | Release orchestration, SemVer versioning, rollback strategy, and changelogs. | **Zero-execution dry plans** until explicit human authorization. |
+| Agent Role | Primary Responsibility | Primary Skills | Tools & Boundaries |
+| :--- | :--- | :--- | :--- |
+| **System Architect** | Architecture, ADRs, strict data contracts, and visual topology. | `sdd-spec`, `align-and-plan`, `sdd-plan` | Read-only on code + docs. No destructive commands. |
+| **TDD Implementer** | Test-driven implementation of logic and components. | `tdd-verify`, `diagnose-bug` | Local unit/integration tests and minimal surgical code. |
+| **QA Automation Lead** | Empirical build, linter, strict typing, and independent auditing. | `code-review`, `sdd-validate` | Execution of linters, compiler, and test suites. |
+| **Security Auditor** | OWASP Top 10 auditing, PoLP enforcement, SAST, and container hardening. | `security-audit` | Static analysis, dependency scanners (SCA), and secret recon. |
+| **Release Architect** | Release orchestration, SemVer versioning, rollback strategy, and changelogs. | `version-bump` | **Zero-execution dry plans** until explicit human authorization. |
 
 Refer to [`docs/ROLES.md`](docs/ROLES.md) for complete role profiles and tool permissions.
+
+---
+
+## 🧰 Canonical Skills Catalogue
+
+AEF comes equipped with a comprehensive suite of executable runbooks:
+
+```mermaid
+graph LR
+    subgraph Orchestration
+        AL["agentic-lifecycle"]
+    end
+    subgraph SDD_Suite["Specification & Planning"]
+        SS["sdd-spec"]
+        AP["align-and-plan"]
+        SP["sdd-plan"]
+        SV["sdd-validate"]
+        SR["sdd-retrofeed"]
+    end
+    subgraph Implementation_Quality["Execution & Quality"]
+        TV["tdd-verify"]
+        DB["diagnose-bug"]
+        CR["code-review"]
+    end
+    subgraph Security_Release["Defense & Delivery"]
+        SEC["security-audit"]
+        VB["version-bump"]
+    end
+
+    AL --> SS
+    AL --> SP
+    AL --> TV
+    AL --> CR
+    AL --> SEC
+    AL --> VB
+    SP --> SV
+    SS --> SV
+    VB -.-> SR
+```
 
 ---
 
@@ -134,11 +173,17 @@ agentic-engineering-framework/
 ├── rules/                  # Core governance and Karpathy x Pocock principles
 │   └── AGENTS.md           # Universal instructions for AI agents
 ├── skills/                 # Executable runbooks and workflows
-│   ├── align-and-plan/     # Pre-flight alignment and interactive grilling
-│   ├── diagnose-bug/       # Deterministic bug diagnosis (Repro-First)
+│   ├── agentic-lifecycle/  # Master 6-phase orchestrator
+│   ├── sdd-spec/           # Spec-Driven Development authoring
+│   ├── align-and-plan/     # Pre-flight alignment and grilling
+│   ├── sdd-plan/           # Atomic task planning
+│   ├── sdd-validate/       # Independent spec & plan auditor
+│   ├── sdd-retrofeed/      # Post-launch continuous feedback
+│   ├── tdd-verify/         # TDD Red-Green-Refactor
+│   ├── diagnose-bug/       # Deterministic bug diagnosis
 │   ├── code-review/        # Two-axis code review
-│   ├── tdd-verify/         # Test-driven development and ground-truth validation
-│   └── version-bump/       # SemVer version bump and release synchronization
+│   ├── security-audit/     # SAST, SCA, and PoLP security audit
+│   └── version-bump/       # Conventional commits release and Dry-Plan
 └── templates/              # Canonical documentation templates
     ├── adr-template.md         # Architectural Decision Record template
     ├── sdd-spec-template.md    # Technical specification template

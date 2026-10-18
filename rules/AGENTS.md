@@ -55,11 +55,24 @@ flowchart TD
 
 Agents must execute standardized skills located in `skills/`:
 
-1. **`align-and-plan`**: Pre-flight alignment, ambiguity resolution, and atomic task breakdown with associated verification commands.
-2. **`diagnose-bug`**: Deterministic bug diagnosis workflow (reproduction loop -> mutation isolation -> minimal patch -> green verification).
-3. **`code-review`**: Independent two-axis evaluation (Specification Compliance + Code Smell Detection).
-4. **`tdd-verify`**: Test-driven development cycle with ground-truth verification against the active runtime.
-5. **`version-bump`**: Semantic versioning increment protocol with changelog and metadata synchronization.
+### 🎯 Orchestration & Lifecycle
+* **`agentic-lifecycle`**: Master orchestrator for the 6-phase deterministic engineering lifecycle with 3 mandatory HITL gates.
+
+### 📐 Specification & Planning (SDD)
+* **`sdd-spec`**: Converts requests into closed, unambiguous technical specifications with Given/When/Then acceptance criteria.
+* **`align-and-plan`**: Pre-flight alignment, interactive grilling, and initial feature scoping.
+* **`sdd-plan`**: Decomposes closed specifications into atomic, TDD-sequenced tasks paired with empirical verification commands.
+* **`sdd-validate`**: Independent read-only quality auditor evaluating specs and plans against strict objective criteria (`PASS | WARN | FAIL`).
+* **`sdd-retrofeed`**: Analyzes post-launch telemetry against specification baselines to generate traceable improvement proposals.
+
+### ⚡ Implementation & Quality
+* **`tdd-verify`**: Test-driven development cycle with ground-truth verification against the active runtime.
+* **`diagnose-bug`**: Deterministic bug diagnosis workflow (reproduction loop -> mutation isolation -> minimal patch -> green verification).
+* **`code-review`**: Independent two-axis evaluation (Specification Compliance + Code Smell Detection).
+
+### 🛡️ Security & Release
+* **`security-audit`**: Pre-release security audit covering SAST, SCA dependency vulnerability scanning, container/PoLP hardening, and OWASP Top 10.
+* **`version-bump`**: Semantic versioning increment protocol based on Conventional Commits, multi-ecosystem manifest sync, Dry-Plans, and GitHub Flow PR drafting.
 
 ---
 
@@ -77,11 +90,17 @@ agentic-engineering-framework/
 │   ├── ROLES.md            # Agent catalogue and privilege matrix
 │   └── GLOSSARY.md         # Ubiquitous domain language
 ├── skills/                 # Executable runbooks and workflows
-│   ├── align-and-plan/
-│   ├── code-review/
-│   ├── diagnose-bug/
-│   ├── tdd-verify/
-│   └── version-bump/
+│   ├── agentic-lifecycle/  # Master 6-phase orchestrator
+│   ├── sdd-spec/           # Spec-Driven Development authoring
+│   ├── align-and-plan/     # Pre-flight alignment and grilling
+│   ├── sdd-plan/           # Atomic task planning
+│   ├── sdd-validate/       # Independent spec & plan auditor
+│   ├── sdd-retrofeed/      # Post-launch continuous feedback
+│   ├── tdd-verify/         # TDD Red-Green-Refactor
+│   ├── diagnose-bug/       # Deterministic bug diagnosis
+│   ├── code-review/        # Two-axis code review
+│   ├── security-audit/     # SAST, SCA, and PoLP security audit
+│   └── version-bump/       # Conventional commits release and Dry-Plan
 └── templates/              # Standardized documentation templates
     ├── adr-template.md
     ├── sdd-spec-template.md
