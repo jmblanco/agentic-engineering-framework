@@ -1,0 +1,22 @@
+{
+  "name": "agentic-engineering-framework",
+  "version": "0.2.0",
+  "description": "A deterministic engineering framework to govern, orchestrate, and operate autonomous AI agent teams with Human-in-the-Loop (HITL).",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-skills.mjs",
+    "test": "node scripts/validate-skills.mjs"
+  },
+  "keywords": [
+    "agents",
+    "agentic-engineering",
+    "ai-governance",
+    "hitl",
+    "skills",
+    "antigravity",
+    "cursor",
+    "claude"
+  ],
+  "author": "Jose Miguel Blanco",
+  "license": "MIT"
+}

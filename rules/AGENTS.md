@@ -98,7 +98,7 @@ agentic-engineering-framework/
 │   ├── ROLES.md            # Agent catalogue and privilege matrix
 │   └── GLOSSARY.md         # Ubiquitous domain language
 ├── scripts/
-│   └── validate-skills.ps1 # Automated skill auditor script
+│   └── validate-skills.mjs # Automated Node.js skill auditor script
 ├── skills/                 # Executable runbooks and workflows
 │   ├── agentic-lifecycle/  # Master 6-phase orchestrator
 │   ├── sdd-spec/           # Spec-Driven Development authoring

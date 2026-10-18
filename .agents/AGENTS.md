@@ -29,7 +29,7 @@ When working on AEF itself as an AI agent:
 
 When adding or updating skills in this repository:
 - Use `skills/skill-creator` to guide the creation process.
-- Run `skills/skill-validator` (or `scripts/validate-skills.ps1`) to ensure compliance with AEF standards:
+- Run `skills/skill-validator` (or `node scripts/validate-skills.mjs` / `npm run validate`) to ensure compliance with AEF standards:
   - Exact folder and frontmatter `name` match (`kebab-case`).
   - Clear, trigger-focused `description`.
   - Defined input/output gates and actionable step-by-step workflow.

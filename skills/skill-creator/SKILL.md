@@ -55,8 +55,8 @@ Never leave criteria implicit. Every skill must define:
 
 ### Step 6: Validate Compliance
 Run the verification check before committing:
-```powershell
-powershell.exe -ExecutionPolicy Bypass -File scripts/validate-skills.ps1 -SkillPath "skills/my-new-skill/SKILL.md"
+```bash
+node scripts/validate-skills.mjs skills/my-new-skill/SKILL.md
 ```
 
 ### Step 7: Register in Framework Catalogues

@@ -42,8 +42,10 @@ A valid AEF skill must satisfy 5 foundational gates:
 
 1. **Locate Target Skill**: Receive target path via `$ARGUMENTS` (e.g., `skills/my-new-skill/SKILL.md` or `skills/my-new-skill/`).
 2. **Execute Automated Script** (if in local workspace):
-   ```powershell
-   powershell.exe -ExecutionPolicy Bypass -File scripts/validate-skills.ps1 -SkillPath "<path>"
+   ```bash
+   node scripts/validate-skills.mjs skills/my-new-skill/SKILL.md
+   # Or audit all skills via npm:
+   npm run validate
    ```
 3. **Manual / Semantic Inspection**:
    - Check description trigger specificity.

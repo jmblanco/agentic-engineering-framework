@@ -139,8 +139,10 @@ Embed rules and skills directly into your assistant's configuration directory:
 
 ### Mode 2: Automated Skill Validation
 Verify the health and compliance of all skills in your project using the deterministic validation suite:
-```powershell
-powershell.exe -ExecutionPolicy Bypass -File scripts/validate-skills.ps1
+```bash
+npm run validate
+# Or directly:
+node scripts/validate-skills.mjs
 ```
 
 ### Mode 3: Daily Engineering Workflow
