@@ -74,6 +74,10 @@ Agents must execute standardized skills located in `skills/`:
 * **`security-audit`**: Pre-release security audit covering SAST, SCA dependency vulnerability scanning, container/PoLP hardening, and OWASP Top 10.
 * **`version-bump`**: Semantic versioning increment protocol based on Conventional Commits, multi-ecosystem manifest sync, Dry-Plans, and GitHub Flow PR drafting.
 
+### 🛠️ Framework & Skill Operations
+* **`skill-creator`**: Guides the design, creation, and onboarding of compliant production-grade agent skills into AEF.
+* **`skill-validator`**: Deterministic quality auditor that evaluates skills against frontmatter integrity, actionable workflows, Ground Truth, and safety constraints.
+
 ---
 
 ## 4. Canonical Repository Structure
@@ -83,12 +87,18 @@ agentic-engineering-framework/
 ├── README.md               # Framework manifesto and visual guide
 ├── CHANGELOG.md            # Release history following Keep a Changelog
 ├── LICENSE                 # MIT License
+├── .agents/
+│   └── AGENTS.md           # Instructions for AI agents operating on AEF itself
+├── .gemini/
+│   └── GEMINI.md           # Workspace instructions for Gemini / Antigravity
 ├── rules/
 │   └── AGENTS.md           # Universal instructions for AI agents
 ├── docs/
 │   ├── METHODOLOGY.md      # Detailed 6-phase deterministic lifecycle
 │   ├── ROLES.md            # Agent catalogue and privilege matrix
 │   └── GLOSSARY.md         # Ubiquitous domain language
+├── scripts/
+│   └── validate-skills.ps1 # Automated skill auditor script
 ├── skills/                 # Executable runbooks and workflows
 │   ├── agentic-lifecycle/  # Master 6-phase orchestrator
 │   ├── sdd-spec/           # Spec-Driven Development authoring
@@ -100,7 +110,9 @@ agentic-engineering-framework/
 │   ├── diagnose-bug/       # Deterministic bug diagnosis
 │   ├── code-review/        # Two-axis code review
 │   ├── security-audit/     # SAST, SCA, and PoLP security audit
-│   └── version-bump/       # Conventional commits release and Dry-Plan
+│   ├── version-bump/       # Conventional commits release and Dry-Plan
+│   ├── skill-creator/      # Creation and onboarding guide for skills
+│   └── skill-validator/    # Quality and safety validator for skills
 └── templates/              # Standardized documentation templates
     ├── adr-template.md
     ├── sdd-spec-template.md

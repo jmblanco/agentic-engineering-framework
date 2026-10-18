@@ -108,6 +108,10 @@ graph LR
         SEC["security-audit"]
         VB["version-bump"]
     end
+    subgraph Skill_Ops["Framework & Operations"]
+        SC["skill-creator"]
+        SKV["skill-validator"]
+    end
 
     AL --> SS
     AL --> SP
@@ -118,6 +122,7 @@ graph LR
     SP --> SV
     SS --> SV
     VB -.-> SR
+    SC --> SKV
 ```
 
 ---
@@ -129,14 +134,13 @@ AEF is designed for modular adoption across diverse development environments:
 ### Mode 1: Within AI Coding Assistants (Antigravity / Cursor / Claude Code)
 Embed rules and skills directly into your assistant's configuration directory:
 - **Project Rules**: Place [`rules/AGENTS.md`](rules/AGENTS.md) as `.agents/rules/AGENTS.md` or append to your system prompt.
+- **Agent Directives**: Keep [`.agents/AGENTS.md`](.agents/AGENTS.md) and [`.gemini/GEMINI.md`](.gemini/GEMINI.md) for assistant-specific execution guidelines.
 - **Executable Skills**: Copy folders from [`skills/`](skills/) into your skills directory (e.g. `.agents/skills/`).
 
-### Mode 2: Bootstrapping New Repositories
-Use standard templates from [`templates/`](templates/) to establish living documentation:
-```bash
-# 1. Copy templates into your target project
-cp -r templates/ my-new-project/templates/
-cp docs/GLOSSARY.md my-new-project/docs/
+### Mode 2: Automated Skill Validation
+Verify the health and compliance of all skills in your project using the deterministic validation suite:
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File scripts/validate-skills.ps1
 ```
 
 ### Mode 3: Daily Engineering Workflow
@@ -166,12 +170,18 @@ agentic-engineering-framework/
 ├── README.md               # Framework overview and visual guide
 ├── CHANGELOG.md            # Version history following Keep a Changelog
 ├── LICENSE                 # MIT License
+├── .agents/
+│   └── AGENTS.md           # Instructions for AI agents operating on AEF itself
+├── .gemini/
+│   └── GEMINI.md           # Workspace instructions for Gemini / Antigravity
 ├── docs/                   # Methodological guides and standards
 │   ├── METHODOLOGY.md      # Detailed 6-phase deterministic lifecycle
 │   ├── ROLES.md            # Agent catalogue and privilege matrix
 │   └── GLOSSARY.md         # Ubiquitous domain language for agentic engineering
 ├── rules/                  # Core governance and Karpathy x Pocock principles
 │   └── AGENTS.md           # Universal instructions for AI agents
+├── scripts/                # Automated audit and validation scripts
+│   └── validate-skills.ps1 # Deterministic skill validation script
 ├── skills/                 # Executable runbooks and workflows
 │   ├── agentic-lifecycle/  # Master 6-phase orchestrator
 │   ├── sdd-spec/           # Spec-Driven Development authoring
@@ -183,7 +193,9 @@ agentic-engineering-framework/
 │   ├── diagnose-bug/       # Deterministic bug diagnosis
 │   ├── code-review/        # Two-axis code review
 │   ├── security-audit/     # SAST, SCA, and PoLP security audit
-│   └── version-bump/       # Conventional commits release and Dry-Plan
+│   ├── version-bump/       # Conventional commits release and Dry-Plan
+│   ├── skill-creator/      # Onboarding guide for new agent skills
+│   └── skill-validator/    # Quality and safety validator for skills
 └── templates/              # Canonical documentation templates
     ├── adr-template.md         # Architectural Decision Record template
     ├── sdd-spec-template.md    # Technical specification template
