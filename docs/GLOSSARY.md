@@ -5,23 +5,38 @@ This glossary defines domain concepts for the **Agentic Engineering Framework (A
 ---
 
 ```mermaid
-mindmap
-  root((AEF Glossary))
-    Agentic Engineering
-      HITL Human in the Loop
-      Ground Truth
-      Vibe Coding
-      Tight Feedback Loop
-    Lifecycle & Methodology
-      SDD Spec Driven Dev
-      Atomic Tasks
-      Repro-First Red-Green
-      Two-Axis Review
-    Security & Ops
-      PoLP Least Privilege
-      Dry-Plan
-      SemVer Versioning
-      ADR Architecture Record
+graph TD
+    Root["AEF Glossary"]
+
+    subgraph AE["Agentic Engineering"]
+        HITL["Human-in-the-Loop (HITL)"]
+        GT["Ground Truth"]
+        VC["Vibe Coding (Anti-pattern)"]
+        TFL["Tight Feedback Loop"]
+    end
+
+    subgraph LM["Lifecycle & Methodology"]
+        SDD["Spec-Driven Dev (SDD)"]
+        AT["Atomic Tasks"]
+        RF["Repro-First (Red-Green)"]
+        TAR["Two-Axis Review"]
+    end
+
+    subgraph SO["Security & Operations"]
+        PoLP["Principle of Least Privilege (PoLP)"]
+        DP["Dry-Plan Execution"]
+        SV["SemVer Versioning"]
+        ADR["Architecture Decision Record (ADR)"]
+    end
+
+    Root --> AE
+    Root --> LM
+    Root --> SO
+
+    classDef rootStyle fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#ffffff;
+    classDef subStyle fill:#f8fafc,stroke:#64748b,stroke-width:1.5px;
+    class Root rootStyle;
+    class HITL,GT,VC,TFL,SDD,AT,RF,TAR,PoLP,DP,SV,ADR subStyle;
 ```
 
 ---
@@ -35,7 +50,7 @@ mindmap
 | **Vibe Coding** | Anti-pattern of writing software by relying on generative AI prompts without deterministic tests, architectural justification, or verification loops. | Mitigated by AEF |
 | **Tight Feedback Loop** | Ultra-fast execution cycle where an agent verifies each modification within seconds using a deterministic pass/fail command. | `skills/diagnose-bug` |
 | **Spec-Driven Development (SDD)** | Engineering discipline ensuring no production code is written prior to an approved, unambiguous technical specification with explicit acceptance criteria. | Phase 1 of Lifecycle |
-| **Grilling** | Structured interactive interrogation process where an AI agent prompts the human engineer to eliminate ambiguities before drafting plans. | `skills/align-and-plan` |
+| **Grilling** | Structured interactive interrogation process where an AI agent prompts the human engineer to eliminate ambiguities before drafting plans. | `skills/sdd-spec` |
 | **Atomic Task** | Self-contained, isolated unit of work addressing a focused scope and paired with an empirical verification command. | Phase 2 of Lifecycle |
 | **Repro-First (Red Phase)** | Non-negotiable debugging rule requiring reproducible proof of failure via a script or test before altering production code. | `skills/diagnose-bug` |
 | **Two-Axis Review** | Code review auditing two independent dimensions: 1) Specification compliance and 2) Code quality & anti-pattern detection. | `skills/code-review` |
