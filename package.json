@@ -1,7 +1,7 @@
 {
   "name": "agentic-engineering-framework",
-  "version": "0.2.0",
-  "description": "A deterministic engineering framework to govern, orchestrate, and operate autonomous AI agent teams with Human-in-the-Loop (HITL).",
+  "version": "1.0.0",
+  "description": "A lean, deterministic engineering framework to govern, orchestrate, and operate autonomous AI agent teams with Human-in-the-Loop (HITL).",
   "type": "module",
   "scripts": {
     "validate": "node scripts/validate-skills.mjs",

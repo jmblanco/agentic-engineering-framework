@@ -2,14 +2,14 @@
 
 <div align="center">
 
-![AEF Version](https://img.shields.io/badge/Version-v0.2.0-blue.svg?style=for-the-badge)
+![AEF Version](https://img.shields.io/badge/Version-v1.0.0-blue.svg?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)
 ![Standard](https://img.shields.io/badge/Architecture-Clean_%26_Deterministic-blue?style=for-the-badge)
 ![Philosophy](https://img.shields.io/badge/Philosophy-Karpathy_%C3%97_Pocock-black?style=for-the-badge)
 ![Human-in-the-Loop](https://img.shields.io/badge/HITL-Mandatory-orange?style=for-the-badge)
 
 <p align="center">
-  <b>A deterministic engineering framework to govern, orchestrate, and operate autonomous AI agent teams with Human-in-the-Loop (HITL).</b>
+  <b>A lean, deterministic engineering framework to govern, orchestrate, and operate autonomous AI agent teams with Human-in-the-Loop (HITL).</b>
 </p>
 
 [Methodology](docs/METHODOLOGY.md) • [Agent Roles](docs/ROLES.md) • [Glossary](docs/GLOSSARY.md) • [Rules](rules/AGENTS.md) • [Templates](templates/) • [Skills](skills/)
@@ -33,10 +33,10 @@ Unstructured generative AI software development (*"vibe coding"*) introduces cri
 
 ```mermaid
 flowchart LR
-    Phase1["1. SPEC<br/>(SDD & Clarify)"] --> Phase2["2. PLAN<br/>(Atomic Tasks)"]
+    Phase1["1. SPEC<br/>(SDD & Grilling)"] --> Phase2["2. PLAN<br/>(Atomic Tasks)"]
     Phase2 --> Phase3["3. TDD<br/>(Red-Green-Refactor)"]
     Phase3 --> Phase4["4. QA AUDIT<br/>(Automated Verification)"]
-    Phase4 --> Phase5["5. SECURITY<br/>(Raptor / SAST)"]
+    Phase4 --> Phase5["5. SECURITY<br/>(SAST & PoLP)"]
     Phase5 --> Phase6["6. RELEASE<br/>(SemVer & Dry-Plan)"]
     
     Human((Human-in-the-Loop)) -.->|"Approves"| Phase1
@@ -73,9 +73,9 @@ graph TD
 
 | Agent Role | Primary Responsibility | Primary Skills | Tools & Boundaries |
 | :--- | :--- | :--- | :--- |
-| **System Architect** | Architecture, ADRs, strict data contracts, and visual topology. | `sdd-spec`, `align-and-plan`, `sdd-plan` | Read-only on code + docs. No destructive commands. |
+| **System Architect** | Architecture, ADRs, strict data contracts, and visual topology. | `sdd-spec`, `sdd-plan` | Read-only on code + docs. No destructive commands. |
 | **TDD Implementer** | Test-driven implementation of logic and components. | `tdd-verify`, `diagnose-bug` | Local unit/integration tests and minimal surgical code. |
-| **QA Automation Lead** | Empirical build, linter, strict typing, and independent auditing. | `code-review`, `sdd-validate` | Execution of linters, compiler, and test suites. |
+| **QA Automation Lead** | Empirical build, linter, strict typing, and independent auditing. | `code-review` | Execution of linters, compiler, and test suites. |
 | **Security Auditor** | OWASP Top 10 auditing, PoLP enforcement, SAST, and container hardening. | `security-audit` | Static analysis, dependency scanners (SCA), and secret recon. |
 | **Release Architect** | Release orchestration, SemVer versioning, rollback strategy, and changelogs. | `version-bump` | **Zero-execution dry plans** until explicit human authorization. |
 
@@ -83,34 +83,28 @@ Refer to [`docs/ROLES.md`](docs/ROLES.md) for complete role profiles and tool pe
 
 ---
 
-## 🧰 Canonical Skills Catalogue
+## 🧰 Lean Skills Catalogue
 
-AEF comes equipped with a comprehensive suite of executable runbooks:
+AEF provides a lean, focused collection of executable runbooks organized into the Core Lifecycle and Repository Tooling:
 
 ```mermaid
 graph LR
-    subgraph Orchestration
+    subgraph Orchestration["Orchestrator"]
         AL["agentic-lifecycle"]
     end
-    subgraph SDD_Suite["Specification & Planning"]
-        SS["sdd-spec"]
-        AP["align-and-plan"]
-        SP["sdd-plan"]
-        SV["sdd-validate"]
-        SR["sdd-retrofeed"]
+    subgraph CoreLifecycle["Core Lifecycle Skills"]
+        SS["sdd-spec (Phase 1)"]
+        SP["sdd-plan (Phase 2)"]
+        TV["tdd-verify (Phase 3)"]
+        DB["diagnose-bug (Phase 3)"]
+        CR["code-review (Phase 4)"]
+        SEC["security-audit (Phase 5)"]
+        VB["version-bump (Phase 6)"]
     end
-    subgraph Implementation_Quality["Execution & Quality"]
-        TV["tdd-verify"]
-        DB["diagnose-bug"]
-        CR["code-review"]
-    end
-    subgraph Security_Release["Defense & Delivery"]
-        SEC["security-audit"]
-        VB["version-bump"]
-    end
-    subgraph Skill_Ops["Framework & Operations"]
+    subgraph RepoOps["Repository & Dev Ops"]
         SC["skill-creator"]
-        SKV["skill-validator"]
+        SV["skill-validator"]
+        DS["doc-sync"]
     end
 
     AL --> SS
@@ -119,10 +113,9 @@ graph LR
     AL --> CR
     AL --> SEC
     AL --> VB
-    SP --> SV
-    SS --> SV
-    VB -.-> SR
-    SC --> SKV
+    TV -.-> DB
+    SC --> SV
+    SC --> DS
 ```
 
 ---
@@ -172,6 +165,7 @@ agentic-engineering-framework/
 ├── README.md               # Framework overview and visual guide
 ├── CHANGELOG.md            # Version history following Keep a Changelog
 ├── LICENSE                 # MIT License
+├── package.json            # Tooling and validation scripts
 ├── .agents/
 │   └── AGENTS.md           # Instructions for AI agents operating on AEF itself
 ├── .gemini/
@@ -183,21 +177,19 @@ agentic-engineering-framework/
 ├── rules/                  # Core governance and Karpathy x Pocock principles
 │   └── AGENTS.md           # Universal instructions for AI agents
 ├── scripts/                # Automated audit and validation scripts
-│   └── validate-skills.ps1 # Deterministic skill validation script
-├── skills/                 # Executable runbooks and workflows
+│   └── validate-skills.mjs # Cross-platform Node.js skill auditor
+├── skills/                 # Lean executable runbooks
 │   ├── agentic-lifecycle/  # Master 6-phase orchestrator
-│   ├── sdd-spec/           # Spec-Driven Development authoring
-│   ├── align-and-plan/     # Pre-flight alignment and grilling
-│   ├── sdd-plan/           # Atomic task planning
-│   ├── sdd-validate/       # Independent spec & plan auditor
-│   ├── sdd-retrofeed/      # Post-launch continuous feedback
-│   ├── tdd-verify/         # TDD Red-Green-Refactor
-│   ├── diagnose-bug/       # Deterministic bug diagnosis
-│   ├── code-review/        # Two-axis code review
-│   ├── security-audit/     # SAST, SCA, and PoLP security audit
-│   ├── version-bump/       # Conventional commits release and Dry-Plan
+│   ├── sdd-spec/           # Spec authoring & interactive grilling (Phase 1)
+│   ├── sdd-plan/           # Atomic task planning & verification commands (Phase 2)
+│   ├── tdd-verify/         # TDD Red-Green-Refactor (Phase 3)
+│   ├── diagnose-bug/       # Deterministic bug diagnosis (Phase 3 troubleshooting)
+│   ├── code-review/        # Independent two-axis code review (Phase 4)
+│   ├── security-audit/     # SAST, SCA, and PoLP security audit (Phase 5)
+│   ├── version-bump/       # SemVer release & Dry-Plan (Phase 6)
 │   ├── skill-creator/      # Onboarding guide for new agent skills
-│   └── skill-validator/    # Quality and safety validator for skills
+│   ├── skill-validator/    # Quality and safety validator for skills
+│   └── doc-sync/           # Automated repository documentation synchronizer
 └── templates/              # Canonical documentation templates
     ├── adr-template.md         # Architectural Decision Record template
     ├── sdd-spec-template.md    # Technical specification template

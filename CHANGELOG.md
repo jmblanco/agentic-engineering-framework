@@ -6,43 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.0.0] - 2026-10-24
+
+### Added
+- **Repository Documentation Synchronizer (`skills/doc-sync`)**: Automated skill that scans the repository and keeps `README.md`, `rules/AGENTS.md`, and diagrams synchronized with zero documentation drift.
+- **Node.js Cross-Platform Validation Script (`scripts/validate-skills.mjs`)**: High-speed, dependency-free validator for skills auditing YAML frontmatter, naming, structure, safety, and Mermaid diagrams.
+- **Developer Tooling Suite**:
+  - `skills/skill-creator`: Guided workflow for creating and onboarding compliant agent skills.
+  - `skills/skill-validator`: Quality and safety auditor for agent skills.
+
+### Changed
+- **Radical Simplification to Lean Core**: Streamlined the framework into a sharp, focused suite:
+  - Phase 1: `sdd-spec` (incorporating upfront interactive grilling and acceptance criteria).
+  - Phase 2: `sdd-plan` (atomic task breakdown with empirical verification commands).
+  - Phase 3: `tdd-verify` & `diagnose-bug` (TDD execution and deterministic repro-first debugging).
+  - Phase 4: `code-review` (independent two-axis review).
+  - Phase 5: `security-audit` (SCA, SAST, PoLP container hardening, OWASP Top 10).
+  - Phase 6: `version-bump` (Conventional Commits, Keep a Changelog sync, Dry-Plans).
+  - Master Orchestrator: `agentic-lifecycle` (coordinates the 6 phases with 3 HITL gates).
+- **Updated Documentation & Diagrams**: Re-architected `README.md` and `rules/AGENTS.md` to reflect the lean catalogue.
+
+### Removed
+- **Redundant & High-Friction Skills**:
+  - Removed `align-and-plan` (consolidated and superseded by `sdd-spec`).
+  - Removed `sdd-validate` and `sdd-retrofeed` (pruned to keep the v1.0 core zero-friction and focused).
+
+---
+
 ## [0.2.0] - 2026-10-18
 
 ### Added
-- **Master Orchestrator (`skills/agentic-lifecycle`)**: End-to-end execution workflow coordinating the 6 deterministic phases across the 5 specialized subagents with 3 mandatory Human-in-the-Loop (HITL) gates.
-- **Specification-Driven Development Suite (SDD)**:
-  - `skills/sdd-spec`: Structured requirement capture featuring `status: clarify` vs `status: closed` modes, interactive grilling, and Given/When/Then acceptance criteria.
-  - `skills/sdd-plan`: Atomic task decomposition guaranteeing 100% acceptance criteria coverage, TDD order, and empirical verification commands.
-  - `skills/sdd-validate`: Independent, read-only quality auditor evaluating specs and plans against strict objective criteria emitting `PASS | WARN | FAIL` verdicts.
-  - `skills/sdd-retrofeed`: Post-launch feedback analyzer comparing telemetry and runtime signals against specification baselines to produce traceable improvement proposals (`GAP-NN` -> `PROP-NN`).
-- **Official Security Audit Skill (`skills/security-audit`)**: Fulfills Phase 5 and the `Security Auditor` role across 4 pillars:
-  - Software Composition Analysis (SCA) dependency scans.
-  - Static Application Security Testing (SAST) and Sonar Clean Code rules.
-  - Container and Infrastructure Hardening (PoLP non-root execution, OWASP HTTP headers, K8s securityContext).
-  - Secret reconnaissance and OWASP Top 10 mitigation.
-
-### Changed
-- **Enhanced Release Workflow (`skills/version-bump`)**: Upgraded to automatically derive SemVer increments from Conventional Commits (`git log`), support multi-stack manifests (Node, Python, Go, Rust, Helm), maintain Keep a Changelog entries, generate mandatory Dry-Plans with rollbacks, and draft GitHub Flow PR release notes.
-- **Rules & Governance Synchronization (`rules/AGENTS.md`)**: Updated the operational skills catalogue and repository hierarchy to reflect the unified 11-skill suite.
-- **Documentation & Visuals (`README.md`)**: Added the Canonical Skills Catalogue visual diagram, updated role capability matrices, and bumped framework version to `v0.2.0`.
+- Master Orchestrator (`skills/agentic-lifecycle`) with 3 mandatory HITL gates.
+- Specification-Driven Development suite (`sdd-spec`, `sdd-plan`, `sdd-validate`, `sdd-retrofeed`).
+- Security Audit skill (`skills/security-audit`) covering SCA, SAST, PoLP, and OWASP.
 
 ---
 
 ## [0.1.0] - 2026-10-17
 
 ### Added
-- **Core Governance Model**: Universal agent operating rules in [`rules/AGENTS.md`](./rules/AGENTS.md) based on the Karpathy × Pocock synthesis.
-- **Deterministic 6-Phase Lifecycle**: Comprehensive guide in [`docs/METHODOLOGY.md`](./docs/METHODOLOGY.md) (SDD, Atomic Plan, TDD, QA Audit, Security/SAST, and Release Dry-Plan).
-- **Subagent Catalogue**: Formal roles and Principle of Least Privilege (PoLP) boundary matrix in [`docs/ROLES.md`](./docs/ROLES.md).
-- **Ubiquitous Domain Glossary**: Formal agentic engineering terminology and Mermaid domain mindmap in [`docs/GLOSSARY.md`](./docs/GLOSSARY.md).
-- **Operational Skills Suite**:
-  - `align-and-plan`: Pre-flight alignment and interactive grilling before coding.
-  - `diagnose-bug`: Deterministic bug diagnosis with tight feedback repro loop (Repro-First).
-  - `code-review`: Independent two-axis code review (specification compliance and code smell detection).
-  - `tdd-verify`: Test-driven development with empirical runtime verification (*Ground Truth*).
-  - `version-bump`: Semantic versioning increment protocol with Dry-Plan and changelog sync.
-- **Canonical Template Collection**:
-  - `templates/adr-template.md`: Architectural Decision Records.
-  - `templates/sdd-spec-template.md`: Spec-Driven Development technical specifications.
-  - `templates/atomic-plan-template.md`: Atomic task planning with verification commands.
-  - `templates/release-plan-template.md`: Release Dry-Plan with explicit rollback strategies.
+- Core Governance Model and 6-phase deterministic lifecycle documentation.
+- Initial agent roles (`docs/ROLES.md`) and ubiquitous domain glossary (`docs/GLOSSARY.md`).
+- Canonical templates for ADRs, SDD specs, atomic plans, and release plans.

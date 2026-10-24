@@ -58,12 +58,9 @@ Agents must execute standardized skills located in `skills/`:
 ### 🎯 Orchestration & Lifecycle
 * **`agentic-lifecycle`**: Master orchestrator for the 6-phase deterministic engineering lifecycle with 3 mandatory HITL gates.
 
-### 📐 Specification & Planning (SDD)
-* **`sdd-spec`**: Converts requests into closed, unambiguous technical specifications with Given/When/Then acceptance criteria.
-* **`align-and-plan`**: Pre-flight alignment, interactive grilling, and initial feature scoping.
+### 📐 Specification & Planning
+* **`sdd-spec`**: Converts requests into closed, unambiguous technical specifications with Given/When/Then acceptance criteria and interactive grilling.
 * **`sdd-plan`**: Decomposes closed specifications into atomic, TDD-sequenced tasks paired with empirical verification commands.
-* **`sdd-validate`**: Independent read-only quality auditor evaluating specs and plans against strict objective criteria (`PASS | WARN | FAIL`).
-* **`sdd-retrofeed`**: Analyzes post-launch telemetry against specification baselines to generate traceable improvement proposals.
 
 ### ⚡ Implementation & Quality
 * **`tdd-verify`**: Test-driven development cycle with ground-truth verification against the active runtime.
@@ -74,9 +71,10 @@ Agents must execute standardized skills located in `skills/`:
 * **`security-audit`**: Pre-release security audit covering SAST, SCA dependency vulnerability scanning, container/PoLP hardening, and OWASP Top 10.
 * **`version-bump`**: Semantic versioning increment protocol based on Conventional Commits, multi-ecosystem manifest sync, Dry-Plans, and GitHub Flow PR drafting.
 
-### 🛠️ Framework & Skill Operations
+### 🛠️ Framework & Repository Operations
 * **`skill-creator`**: Guides the design, creation, and onboarding of compliant production-grade agent skills into AEF.
 * **`skill-validator`**: Deterministic quality auditor that evaluates skills against frontmatter integrity, actionable workflows, Ground Truth, and safety constraints.
+* **`doc-sync`**: Automatically synchronizes and updates framework documentation, diagrams, rules, and changelogs when changes are introduced.
 
 ---
 
@@ -87,6 +85,7 @@ agentic-engineering-framework/
 ├── README.md               # Framework manifesto and visual guide
 ├── CHANGELOG.md            # Release history following Keep a Changelog
 ├── LICENSE                 # MIT License
+├── package.json            # Node.js project manifest and test scripts
 ├── .agents/
 │   └── AGENTS.md           # Instructions for AI agents operating on AEF itself
 ├── .gemini/
@@ -98,21 +97,19 @@ agentic-engineering-framework/
 │   ├── ROLES.md            # Agent catalogue and privilege matrix
 │   └── GLOSSARY.md         # Ubiquitous domain language
 ├── scripts/
-│   └── validate-skills.mjs # Automated Node.js skill auditor script
-├── skills/                 # Executable runbooks and workflows
+│   └── validate-skills.mjs # Cross-platform Node.js skill auditor
+├── skills/                 # Lean executable runbooks
 │   ├── agentic-lifecycle/  # Master 6-phase orchestrator
-│   ├── sdd-spec/           # Spec-Driven Development authoring
-│   ├── align-and-plan/     # Pre-flight alignment and grilling
-│   ├── sdd-plan/           # Atomic task planning
-│   ├── sdd-validate/       # Independent spec & plan auditor
-│   ├── sdd-retrofeed/      # Post-launch continuous feedback
-│   ├── tdd-verify/         # TDD Red-Green-Refactor
-│   ├── diagnose-bug/       # Deterministic bug diagnosis
-│   ├── code-review/        # Two-axis code review
-│   ├── security-audit/     # SAST, SCA, and PoLP security audit
-│   ├── version-bump/       # Conventional commits release and Dry-Plan
-│   ├── skill-creator/      # Creation and onboarding guide for skills
-│   └── skill-validator/    # Quality and safety validator for skills
+│   ├── sdd-spec/           # Spec authoring & interactive grilling (Phase 1)
+│   ├── sdd-plan/           # Atomic task planning & verification commands (Phase 2)
+│   ├── tdd-verify/         # TDD Red-Green-Refactor (Phase 3)
+│   ├── diagnose-bug/       # Deterministic bug diagnosis (Phase 3 troubleshooting)
+│   ├── code-review/        # Independent two-axis code review (Phase 4)
+│   ├── security-audit/     # SAST, SCA, and PoLP security audit (Phase 5)
+│   ├── version-bump/       # Conventional commits release and Dry-Plan (Phase 6)
+│   ├── skill-creator/      # Onboarding guide for new agent skills
+│   ├── skill-validator/    # Quality and safety validator for skills
+│   └── doc-sync/           # Repository documentation synchronizer
 └── templates/              # Standardized documentation templates
     ├── adr-template.md
     ├── sdd-spec-template.md

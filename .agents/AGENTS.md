@@ -10,8 +10,9 @@ When working on AEF itself as an AI agent:
 1. **Repository Language**: All documentation, skill definitions, templates, commit messages, and PRs must be written in **English**.
 2. **Ground Truth & Validation**: Always validate modified files. For skills, verify YAML frontmatter, naming conventions, and execute `skills/skill-validator` when adding or modifying skills.
 3. **Determinism over Vibes**: No speculative code or untraced skills. Every skill must define explicit triggers, inputs, outputs, and quality gates.
-4. **Human-in-the-Loop (HITL)**: Any structural change to the 6 lifecycle phases, core subagents, or release versions (`version-bump`) requires explicit user confirmation.
-5. **Keep a Changelog**: All user-facing or architectural changes must be registered in `CHANGELOG.md` following SemVer.
+4. **Documentation Synchronization**: When adding, modifying, or removing skills or templates, invoke `skills/doc-sync` to ensure `README.md`, `rules/AGENTS.md`, and diagrams remain in 100% sync.
+5. **Human-in-the-Loop (HITL)**: Any structural change to the 6 lifecycle phases, core subagents, or release versions (`version-bump`) requires explicit user confirmation.
+6. **Keep a Changelog**: All user-facing or architectural changes must be registered in `CHANGELOG.md` following SemVer.
 
 ---
 
@@ -34,3 +35,4 @@ When adding or updating skills in this repository:
   - Clear, trigger-focused `description`.
   - Defined input/output gates and actionable step-by-step workflow.
   - Zero plaintext secrets or dangerous unvetted bash commands.
+- Run `skills/doc-sync` to update framework documentation.
