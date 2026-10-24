@@ -7,42 +7,17 @@ To eliminate context contamination and prevent over-privileged execution, the **
 ## 🏛️ Subagent Architecture Matrix
 
 ```mermaid
-classDiagram
-    class SystemArchitect {
-        +Architectural Design
-        +Drafting ADRs
-        +Data Contracts
-        +Permissions: Read-Only & Docs
-    }
-    class TDDImplementer {
-        +Surgical Code
-        +TDD Test Suites
-        +Minimal Refactoring
-        +Permissions: Local Code & Tests
-    }
-    class QAAutomationLead {
-        +Type Checking & Linter
-        +Two-Axis Evaluation
-        +Regression Verification
-        +Permissions: Test Runner & Linters
-    }
-    class SecurityAuditor {
-        +OWASP Top 10 Auditing
-        +Secret Scanning
-        +PoLP Verification
-        +Permissions: Read-Only & SAST Scanners
-    }
-    class ReleaseArchitect {
-        +SemVer Bump & Changelog
-        +Dry-Plan Design
-        +Rollback Orchestration
-        +Permissions: Dry-Run (Deploy via HITL)
-    }
+flowchart TD
+    SA["System Architect: Design & ADRs"]
+    TI["TDD Implementer: Code & Tests"]
+    QA["QA Automation Lead: Linter & Code Review"]
+    SEC["Security Auditor: SAST & PoLP"]
+    REL["Release Architect: SemVer & Dry-Plan"]
 
-    SystemArchitect --> TDDImplementer : Spec & ADR
-    TDDImplementer --> QAAutomationLead : Code + Tests
-    QAAutomationLead --> SecurityAuditor : QA Approval
-    SecurityAuditor --> ReleaseArchitect : Cleared Security Report
+    SA -->|"Spec & Contracts"| TI
+    TI -->|"Surgical Code"| QA
+    QA -->|"Approved Review"| SEC
+    SEC -->|"Clean Audit"| REL
 ```
 
 ---
