@@ -18,6 +18,23 @@
 
 ---
 
+## 💡 Intellectual Origins & Core Philosophy
+
+**Agentic Engineering Framework (AEF)** was conceived to solve the fundamental reliability problem of generative AI in software engineering. Rather than relying on unguided autocomplete or speculative prompt generation (*"vibe coding"*), AEF synthesizes the practical engineering philosophies of two pioneers:
+
+### 1. Andrej Karpathy: Radical Simplicity & Empirical Ground Truth
+- **Occam's Razor for Code**: Radical rejection of premature over-engineering, monolithic abstractions, and ceremonial layers.
+- **Tight Feedback Loops**: Sub-second execution cycles verifying every code delta against actual runtime environments.
+- **Repro-First Rule**: Zero tolerance for guessing root causes. A failing test case or deterministic reproduction script must exist before touching production code.
+- **Empirical Ground Truth**: Never trust code because it "looks right" or compiles mentally; validation exists only when verified by compilers, linters, and test runners.
+
+### 2. Matt Pocock: Upfront Grilling, Strict Contracts & Two-Axis Auditing
+- **Interactive Grilling (*Grill Me*)**: The primary source of failure in AI-assisted development is unaligned assumptions. AEF agents actively interrogate developers upfront with targeted questions and explicit `(Recommended)` defaults to resolve ambiguities before planning.
+- **Ubiquitous Language & Strict Contracts**: Type-safe domain models, explicit interfaces, and shared glossary definitions preventing semantic drift.
+- **Two-Axis Code Review**: Independent evaluation separating specification compliance (did we build what was asked?) from engineering standards (did we introduce code smells or technical debt?).
+
+---
+
 ## 🎯 Why This Framework?
 
 Unstructured generative AI software development (*"vibe coding"*) introduces critical systemic risks:
@@ -32,21 +49,16 @@ Unstructured generative AI software development (*"vibe coding"*) introduces cri
 ## 🏛️ Deterministic Lifecycle (6 Immutable Phases)
 
 ```mermaid
-flowchart LR
-    Phase1["1. SPEC<br/>(SDD & Grilling)"] --> Phase2["2. PLAN<br/>(Atomic Tasks)"]
-    Phase2 --> Phase3["3. TDD<br/>(Red-Green-Refactor)"]
-    Phase3 --> Phase4["4. QA AUDIT<br/>(Automated Verification)"]
-    Phase4 --> Phase5["5. SECURITY<br/>(SAST & PoLP)"]
-    Phase5 --> Phase6["6. RELEASE<br/>(SemVer & Dry-Plan)"]
-    
-    Human((Human-in-the-Loop)) -.->|"Approves"| Phase1
-    Human -.->|"Approves"| Phase2
-    Human -.->|"Authorizes Deploy"| Phase6
+flowchart TD
+    P1["1. SPEC: SDD & Grilling"] --> P2["2. PLAN: Atomic Tasks"]
+    P2 --> P3["3. TDD: Red-Green-Refactor"]
+    P3 --> P4["4. QA AUDIT: Automated Verification"]
+    P4 --> P5["5. SECURITY: SAST & PoLP"]
+    P5 --> P6["6. RELEASE: SemVer & Dry-Plan"]
 
-    classDef stage fill:#f8fafc,stroke:#3b82f6,stroke-width:2px;
-    classDef human fill:#fff7ed,stroke:#f97316,stroke-width:2px;
-    class Phase1,Phase2,Phase3,Phase4,Phase5,Phase6 stage;
-    class Human human;
+    H1["Human-in-the-Loop Gate 1"] -.->|"Approves Spec"| P1
+    H2["Human-in-the-Loop Gate 2"] -.->|"Approves Plan"| P2
+    H3["Human-in-the-Loop Gate 3"] -.->|"Authorizes Deploy"| P6
 ```
 
 For full details on inputs, outputs, and quality gates for every phase, refer to [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) and execute via [`skills/agentic-lifecycle`](skills/agentic-lifecycle/SKILL.md).
@@ -58,12 +70,12 @@ For full details on inputs, outputs, and quality gates for every phase, refer to
 To prevent context contamination and over-privileged operations, AEF defines 5 dedicated subagents governed by the Principle of Least Privilege (PoLP):
 
 ```mermaid
-graph TD
-    SA["🏗️ System Architect<br/><i>Design & ADRs</i>"]
-    TI["⚡ TDD Implementer<br/><i>Code & Tests</i>"]
-    QA["🧪 QA Automation Lead<br/><i>Linter & Code Review</i>"]
-    SEC["🛡️ Security Auditor<br/><i>SAST & PoLP</i>"]
-    REL["🚀 Release Architect<br/><i>SemVer & Dry-Plan</i>"]
+flowchart TD
+    SA["System Architect: Design & ADRs"]
+    TI["TDD Implementer: Code & Tests"]
+    QA["QA Automation Lead: Linter & Code Review"]
+    SEC["Security Auditor: SAST & PoLP"]
+    REL["Release Architect: SemVer & Dry-Plan"]
 
     SA -->|"Spec & Contracts"| TI
     TI -->|"Surgical Code"| QA
@@ -88,19 +100,21 @@ Refer to [`docs/ROLES.md`](docs/ROLES.md) for complete role profiles and tool pe
 AEF provides a lean, focused collection of executable runbooks organized into the Core Lifecycle and Repository Tooling:
 
 ```mermaid
-graph LR
+flowchart TD
     subgraph Orchestration["Orchestrator"]
         AL["agentic-lifecycle"]
     end
+
     subgraph CoreLifecycle["Core Lifecycle Skills"]
-        SS["sdd-spec (Phase 1)"]
-        SP["sdd-plan (Phase 2)"]
-        TV["tdd-verify (Phase 3)"]
-        DB["diagnose-bug (Phase 3)"]
-        CR["code-review (Phase 4)"]
-        SEC["security-audit (Phase 5)"]
-        VB["version-bump (Phase 6)"]
+        SS["sdd-spec: Phase 1 Spec & Grilling"]
+        SP["sdd-plan: Phase 2 Atomic Tasks"]
+        TV["tdd-verify: Phase 3 TDD Cycle"]
+        DB["diagnose-bug: Phase 3 Repro-First"]
+        CR["code-review: Phase 4 Two-Axis QA"]
+        SEC["security-audit: Phase 5 Security"]
+        VB["version-bump: Phase 6 Release"]
     end
+
     subgraph RepoOps["Repository & Dev Ops"]
         SC["skill-creator"]
         SV["skill-validator"]
@@ -199,6 +213,8 @@ agentic-engineering-framework/
 
 ---
 
-## 📄 License
+## 📄 License & Attribution
 
-This project is licensed under the **MIT License**. Designed and maintained by [Jose Miguel Blanco](https://github.com/jmblanco).
+This project is open-source software licensed under the **MIT License**.
+
+Conceived and designed as an open engineering framework synthesizing the insights of **Andrej Karpathy** (Autonomous Agent design, Tight Feedback Loops, Ground Truth verification) and **Matt Pocock** (Spec-Driven Development, Interactive Grilling, Two-Axis Code Review, Strict Type Systems).

@@ -5,7 +5,7 @@ This glossary defines domain concepts for the **Agentic Engineering Framework (A
 ---
 
 ```mermaid
-graph TD
+flowchart TD
     Root["AEF Glossary"]
 
     subgraph AE["Agentic Engineering"]
@@ -32,11 +32,6 @@ graph TD
     Root --> AE
     Root --> LM
     Root --> SO
-
-    classDef rootStyle fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#ffffff;
-    classDef subStyle fill:#f8fafc,stroke:#64748b,stroke-width:1.5px;
-    class Root rootStyle;
-    class HITL,GT,VC,TFL,SDD,AT,RF,TAR,PoLP,DP,SV,ADR subStyle;
 ```
 
 ---
